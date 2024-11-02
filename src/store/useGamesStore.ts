@@ -1,23 +1,30 @@
-'use client'
-import { create } from 'zustand'
+// import { create } from 'zustand'
+// import { fetchTodos } from '@/services/api'
 
-interface GamesStore extends GamesState, GamesActions {}
+// interface Todo {
+//   id: number
+//   title: string
+//   completed: boolean
+// }
 
-type GamesState = {
-  counter: number;
-};
+// interface AppState {
+//   todos: Todo[]
+//   isLoading: boolean
+//   error: string | null
+//   fetchTodos: () => Promise<void>
+// }
 
-const initialState: GamesState = {
-  counter: 0,
-};
-
-type GamesActions = {
-  incrementCounter: () => void
-}
-
-export const useGamesStore = create<GamesStore>()((set) => ({
-  ...initialState,
-  incrementCounter: () => set((state) => ({ counter: state.counter + 1 })),
-}));
-
-export default useGamesStore;
+// export const useAppStore = create<AppState>((set) => ({
+//   todos: [],
+//   isLoading: false,
+//   error: null,
+//   fetchTodos: async () => {
+//     set({ isLoading: true })
+//     try {
+//       const todos = await fetchTodos()
+//       set({ todos, isLoading: false, error: null })
+//     } catch (error) {
+//       set({ error: (error as Error).message, isLoading: false })
+//     }
+//   },
+// }))
