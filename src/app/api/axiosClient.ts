@@ -1,21 +1,24 @@
 import axios from 'axios';
 
-// Declare types for the access token and its expiration
 let accessToken: string | null = null;
 let tokenExpiresAt: number | null = null;
 
 const axiosInstance = axios.create();
 
+const secret: string | undefined = process.env.client_secret
+const client_id: string | undefined = process.env.client_id
+
 async function fetchAccessToken() {
+  if(!secret || !client_id) return;
   const tokenResponse = await axios.post('https://id.twitch.tv/oauth2/token', 
     new URLSearchParams({
-    client_id: "62ux89s11tlzop2gw1xvd83llqursu",
-    client_secret: "ud2ouweay1o3a8ehpto21p8pehrfl5",
+    client_id: client_id,
+    client_secret: secret,
     grant_type: 'client_credentials'
   }));
 
-  accessToken = tokenResponse.data.access_token; // Type is string
-  tokenExpiresAt = Date.now() + (tokenResponse.data.expires_in * 1000); // Convert to milliseconds
+  accessToken = tokenResponse.data.access_token; 
+  tokenExpiresAt = Date.now() + (tokenResponse.data.expires_in * 1000); 
 }
 
 axiosInstance.interceptors.request.use(async (config) => {

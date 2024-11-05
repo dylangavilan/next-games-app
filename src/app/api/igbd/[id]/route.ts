@@ -1,32 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
-import axiosInstance from '../axiosClient'; 
+import axiosInstance from '@/app/api/axiosClient';
 
 export async function GET(req: NextRequest) {
-  const searchParams = req.nextUrl.searchParams;
-  const query = searchParams.get('search');
+  // Extraer `id` de la URL
+  const id = req.nextUrl.pathname.split('/').pop();
 
-  // Verificación de parámetros
-  if (!query) {
-    
-    return NextResponse.json({ status: 400, message: 'Por favor, añade un parámetro de búsqueda' });
+  if (!id) {
+    return NextResponse.json({ status: 400, message: 'Por favor, añade un parámetro de ID' });
   }
 
   try {
     const igdbResponse = await axiosInstance.post(
       'https://api.igdb.com/v4/games',
-      `fields name, category, platforms, cover.image_id, screenshots.image_id; search "${query}";`    
+      `fields name, category, platforms, cover.image_id, screenshots.image_id; where id = ${id};`
     );
 
-    // Verifica si hay resultados antes de responder
     if (!igdbResponse.data || igdbResponse.data.length === 0) {
       return NextResponse.json({ status: 404, message: 'No se encontraron resultados' });
     }
 
-    return NextResponse.json({ data: igdbResponse.data , status: 200});
+    return NextResponse.json({ data: igdbResponse.data[0], status: 200 });
   } catch (error: any) {
     console.error('Error al obtener datos de IGDB:', error);
 
-    // Manejo detallado del error
     const status = error.response?.status || 500;
     const message = error.response?.data?.message || 'Ocurrió un error inesperado';
 
