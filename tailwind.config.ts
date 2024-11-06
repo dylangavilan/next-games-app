@@ -25,6 +25,7 @@ const config: Config = {
 			"aera-violet": {
 				50: "#E2DCE7",
 				100: "#E7C0DB",
+				300: "#775C90",
 				600: "#6727A6",
 				900: "#3C1661"
 			},

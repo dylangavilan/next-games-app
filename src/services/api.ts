@@ -19,8 +19,7 @@ export async function searchGames(input: string): Promise<Game[]> {
     }
 }
 
-// export async function getGameByID(id: string) {
-//     console.log('id',`/api/igbd/${id}`)
-//     const response = 
-//     // return response.data.data;
-// }
+export async function getGameByID(id: string): Promise<Game> {
+    const response =  await axios.get(`/api/igbd/${id}`)
+    return response.data.data;
+}

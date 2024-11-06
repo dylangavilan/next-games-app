@@ -12,7 +12,8 @@ export async function GET(req: NextRequest) {
   try {
     const igdbResponse = await axiosInstance.post(
       'https://api.igdb.com/v4/games',
-      `fields name, category, platforms, cover.image_id, screenshots.image_id; where id = ${id};`
+      `fields name, category, rating, similar_games.name, similar_games.cover.image_id, 
+      platforms.name, cover.image_id, franchise, screenshots.image_id; where id = ${id};`
     );
 
     if (!igdbResponse.data || igdbResponse.data.length === 0) {

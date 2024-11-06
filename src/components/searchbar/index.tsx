@@ -45,7 +45,7 @@ const Searchbar = (props: Props) => {
   }
 
   return (
-    <div className="relative w-full max-w-sm">
+    <div className="relative w-full max-w-sm pb-8">
         <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
             <Search className={twJoin(isFocus ? 'text-aera-violet-600' : 'text-aera-gray-200', 'w-4 transition-all duration-300' )} />
         </div>
