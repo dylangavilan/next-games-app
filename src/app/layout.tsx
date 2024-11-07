@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Searchbar from "@/components/searchbar";
 import logo from "@/assets/logo-mobile.png"
+import Header from "@/components/header";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,14 +32,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased p-4`}
       >
-        <header>
-          <nav className='flex items-center'>
-            
-              <Image src={logo} alt="" width={24} height={24} />
-              Gaming Haven Z
-          </nav>
+        <Header>
+
           <Searchbar/>
-        </header>
+        </Header>
         {children}
       </body>
     </html>

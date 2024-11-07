@@ -6,23 +6,29 @@ import Game from '@/components/detail/game';
 import { getImage } from '@/app/constants';
 import { getGameByID } from '@/services/api';
 import Button from '@/components/button';
+import { useGameStore } from '@/store/useGamesStore';
 
 type Props = {}
 
 function Page({}: Props) {
   const { id } = useParams()
   const [isFetching, setIsFetching] = useState<boolean>(false)
-  const [game, setGame] = useState<Game | null>(null)
-
+  const [game, setGame] = useState<GameDetail | null>(null)
+  const { addGame, savedGames } = useGameStore(state => state)
+  console.log(savedGames)
   useEffect(() => {
     if(id && typeof id === 'string') {
       setIsFetching(true)
-      getGameByID(id).then((response: Game) =>{ 
+      getGameByID(id).then((response: GameDetail) =>{ 
         setGame(response)})
       .finally(() => setIsFetching(false))
     }
   }, [])
-
+  const handleCollect = () => {
+    console.log('game')
+    if(!game) return;
+    addGame(game)
+  }
   if(isFetching) {
     return <div> is Fetching </div>
   }
@@ -32,7 +38,7 @@ function Page({}: Props) {
       {game &&
         <>
           <Game cover={getImage('cover_small', game.cover.image_id)} name={game.name} enterprise='Rockstar' />
-          <Button variant='primary'>
+          <Button variant='primary' onClick={handleCollect}>
             Collect game
           </Button>
         </>

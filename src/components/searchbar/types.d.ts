@@ -11,6 +11,15 @@ interface Game {
     id: number
     category: number
     name: string
-    platforms: Array<number>
     cover: Cover
+}
+type SimilarGame = {
+    name: string,
+    cover: Cover,
+}
+interface GameDetail extends Game {
+    screenshots: Screenshots[],
+    similar_games: SimilarGame[],
+    platforms: Array<number>,
+    rating: number
 }

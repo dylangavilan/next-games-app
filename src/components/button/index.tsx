@@ -1,24 +1,31 @@
-import React, { ButtonHTMLAttributes } from 'react'
+import React, { ButtonHTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-    variant: 'primary' | 'secondary';
-    loading?: boolean;
-    fit?: boolean;
-  };
-
-const Button = ({ children, variant, className }: Props) => {
-  const styles = {
-    primary: 'bg-aera-violet-900 text-white',
-    secondary: 'border-aera-violet-900 text-aera-violet-900 border'
-  }
-  return (
-    <button className={twMerge('w-full px-2 py-4 rounded-[30px] font-semibold text-base', 
-            styles[variant], 
-            className)}>
-      {children}
-    </button>
-  )
+  variant: 'primary' | 'secondary';
+  loading?: boolean;
+  fit?: boolean;
 };
 
-export default Button
+const Button = ({ children, variant, loading, fit = false, className, ...props }: Props) => {
+  const baseStyles = 'px-4 py-2 rounded-full font-semibold text-base transition-all duration-200';
+  
+  const variantStyles = {
+    primary: 'bg-aera-violet-900 text-white hover:bg-aera-violet-700',
+    secondary: 'border border-aera-violet-900 text-aera-violet-900 hover:bg-aera-violet-100'
+  };
+  
+  const fitStyles = fit ? 'w-full' : '';
+
+  const loadingStyles = loading ? 'opacity-70 cursor-not-allowed' : '';
+
+  const buttonClasses = twMerge(baseStyles, variantStyles[variant], fitStyles, loadingStyles, className);
+
+  return (
+    <button {...props} className={buttonClasses} disabled={loading}>
+      {loading ? 'Loading...' : children}
+    </button>
+  );
+};
+
+export default Button;

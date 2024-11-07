@@ -61,7 +61,7 @@ const Searchbar = (props: Props) => {
         {games?.length > 0 && 
             <Select optionsLength={games.length}>
                 {games?.map((game) => (
-                <SelectItem  key={game.id} handleSelect={() => handleSelect(game)}>
+                <SelectItem key={game.id} handleSelect={() => handleSelect(game)}>
                         {game.cover && (
                             <OptionImage cover={game.cover}/>
                         )}

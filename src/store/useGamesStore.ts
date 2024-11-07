@@ -1,14 +1,14 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware';
-interface GameWithTimestamp extends Game {
+interface GameWithTimestamp extends GameDetail {
   timestamp: number;
 }
 interface AppState {
   savedGames: Array<GameWithTimestamp>;
-  addGame: (game: Game) => void;
+  addGame: (game: GameDetail) => void;
 }
 
-export const useAppStore = create<AppState>()(
+export const useGameStore = create<AppState>()(
   persist(
     (set) => ({
       savedGames: [],

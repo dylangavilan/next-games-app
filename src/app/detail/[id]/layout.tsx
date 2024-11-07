@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import type { Metadata, ResolvingMetadata } from "next";
 import axios from "axios";
 import { PropsWithChildren } from "react";
+import { getGameByID } from "@/services/api";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,13 +19,12 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   try {
     const id = (await params).id
-    const { data } = await axios.get(`http://localhost:3000/api/igbd/${id}`);
-    console.log(data.data)
+    const { data } = await getGameByID(id);
     // Extender la metadata previa en lugar de reemplazarla
     const previousImages = (await parent).openGraph?.images || [];
 
     return {
-      title: data.data.name,
+      title: data.name,
       openGraph: {
         images: ['/some-specific-page-image.jpg', ...previousImages],
       },
