@@ -3,11 +3,10 @@ import React, { ChangeEvent, useState } from 'react'
 import Select from './options'
 import SelectItem from './option-item'
 import { searchGames } from '@/services/api'
-import { getImage } from '@/app/constants'
 import OptionImage from './option-image'
 import { Search } from 'lucide-react';
-import { twJoin } from 'tailwind-merge'
 import { useRouter } from 'next/navigation'
+import { cn } from '@/lib/utils'
 
 type Props = {}
 
@@ -45,15 +44,15 @@ const Searchbar = (props: Props) => {
   }
 
   return (
-    <div className="relative w-full max-w-sm pb-8">
+    <div className="relative w-full max-w-sm pb-8 z-50">
         <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-            <Search className={twJoin(isFocus ? 'text-aera-violet-600' : 'text-aera-gray-200', 'w-4 transition-all duration-300' )} />
+            <Search className={cn(isFocus ? 'text-aera-violet-600' : 'text-aera-gray-200', 'w-4 transition-all duration-300' )} />
         </div>
         <input type='search' 
                placeholder='Search games...' 
                onFocus={() => setIsFocus(true)}
                onBlur={() => setIsFocus(false)}
-               className={twJoin('rounded-[20px] border px-2 w-full py-2.5 pl-8 outline-none', 
+               className={cn('rounded-[20px] border px-2 w-full py-2.5 pl-8 outline-none', 
                          isFocus && 'border-aera-violet-900',
                          games.length > 0 && '!border-aera-pink-600 rounded-b-none')}
                onChange={handleChange}
@@ -71,8 +70,7 @@ const Searchbar = (props: Props) => {
 
             </Select>
         }
-    </div>
-    
+     </div>
   )
 }
 

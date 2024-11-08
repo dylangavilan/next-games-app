@@ -1,4 +1,4 @@
-import { getImage } from '@/app/constants'
+import { getCover } from '@/lib/utils'
 import React from 'react'
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
 
 const OptionImage = ({ cover }: Props) => {
   return (
-    <img src={getImage('micro', cover.image_id)} alt={`${cover.id} cover`} className='rounded-[4px]'/>
+    <img src={getCover('micro', cover.image_id)} alt={`${cover.id} cover`} className='rounded-[4px]'/>
   )
 }
 

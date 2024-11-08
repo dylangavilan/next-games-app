@@ -3,31 +3,36 @@ import axios from 'axios';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import Game from '@/components/detail/game';
-import { getImage } from '@/app/constants';
 import { getGameByID } from '@/services/api';
 import Button from '@/components/button';
 import { useGameStore } from '@/store/useGamesStore';
+import { getCover } from '@/lib/utils';
 
 type Props = {}
 
 function Page({}: Props) {
   const { id } = useParams()
+  const [isCollected, setIsCollected] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [game, setGame] = useState<GameDetail | null>(null)
   const { addGame, savedGames } = useGameStore(state => state)
-  console.log(savedGames)
+  
   useEffect(() => {
     if(id && typeof id === 'string') {
       setIsFetching(true)
-      getGameByID(id).then((response: GameDetail) =>{ 
-        setGame(response)})
+      getGameByID(id)
+      .then((response: GameDetail) => { 
+        setGame(response);
+        setIsCollected(savedGames.some((game: Game) => game.id === response.id))
+      })
       .finally(() => setIsFetching(false))
     }
   }, [])
+
   const handleCollect = () => {
-    console.log('game')
     if(!game) return;
     addGame(game)
+    //logica de toast
   }
   if(isFetching) {
     return <div> is Fetching </div>
@@ -37,9 +42,9 @@ function Page({}: Props) {
     <div className='flex flex-col gap-6'>
       {game &&
         <>
-          <Game cover={getImage('cover_small', game.cover.image_id)} name={game.name} enterprise='Rockstar' />
-          <Button variant='primary' onClick={handleCollect}>
-            Collect game
+          <Game cover={getCover('cover_small', game.cover.image_id)} name={game.name} enterprise='Rockstar' />
+          <Button variant={isCollected ? 'primary' : 'secondary'} onClick={handleCollect}>
+            {isCollected ? 'Collect game' : 'Game collected'}
           </Button>
         </>
 

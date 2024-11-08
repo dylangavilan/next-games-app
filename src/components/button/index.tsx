@@ -1,5 +1,5 @@
+import { cn } from '@/lib/utils';
 import React, { ButtonHTMLAttributes } from 'react';
-import { twMerge } from 'tailwind-merge';
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant: 'primary' | 'secondary';
@@ -19,7 +19,7 @@ const Button = ({ children, variant, loading, fit = false, className, ...props }
 
   const loadingStyles = loading ? 'opacity-70 cursor-not-allowed' : '';
 
-  const buttonClasses = twMerge(baseStyles, variantStyles[variant], fitStyles, loadingStyles, className);
+  const buttonClasses = cn(baseStyles, variantStyles[variant], fitStyles, loadingStyles, className);
 
   return (
     <button {...props} className={buttonClasses} disabled={loading}>
