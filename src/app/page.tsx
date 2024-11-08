@@ -2,19 +2,55 @@
 import Card from '@/components/card'
 import Tabs from '@/components/tabs'
 import { useGameStore } from '@/store/useGamesStore'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useMemo, useState } from 'react'
 type Props = {}
-
+type Option = 'newest' | 'last_added' | 'oldest'
 const Home = (props: Props) => {
-  const { savedGames } = useGameStore(state => state)
-//   console.log()
+  const { savedGames, removeGame } = useGameStore(state => state)
+  const [games, setGames] = useState<GameWithTimestamp[]>(savedGames)
+  const router = useRouter()
+
+  useEffect(() =>{
+    setGames(savedGames)
+  }, [savedGames])
+  
+  const sortLastAdded = useMemo(() => {
+    return () => [...games].sort((a, b) => b.timestamp - a.timestamp)
+  }, [games])
+
+  const sortNewest = useMemo(() => {
+    return () => [...games].sort((a, b) => b.first_release_date - a.first_release_date)
+  }, [games])
+
+  const sortOldest = useMemo(() => {
+    return () => [...games].sort((a, b) => a.first_release_date - b.first_release_date)
+  }, [games])
+
+  const handleSort = (option: Option) => {
+    let sortFunction;
+    switch (option) {
+      case 'last_added':
+        sortFunction = sortLastAdded;
+        break;
+      case 'newest':
+        sortFunction = sortNewest;
+        break;
+      case 'oldest':
+        sortFunction = sortOldest;
+        break;
+      default:
+        return;
+    }
+    setGames(sortFunction());
+  }
+  
   return (
     <main>
-
-      <Tabs />
+      <Tabs handleSort={handleSort}/>
       <div className='flex gap-2'>
-        {savedGames.map((game: Game) => (
-          <Card {...game} />
+        {games?.map((game: Game) => (
+            <Card {...game} key={game.id} handleRemove={() => removeGame(game.id)} onClick={() => router.push('/detail/' + game.id)} />
         ))}
       </div>
     </main>

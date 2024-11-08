@@ -2,18 +2,26 @@ import { getCover } from '@/lib/utils'
 import { Trash } from 'lucide-react';
 import React from 'react'
 
-type Props = {}
+type Props = {
+  handleRemove: () => void
+  onClick: () => void
+} & Game
 
-export default function Card(props: Game) {
+export default function Card(props: Props) {
   return (
-    <div className="relative w-28 h-[9.5rem]">
+    <div className="relative w-28 h-[9.5rem]" onClick={props.onClick}>
       <img
         src={getCover('cover_small', props.cover.image_id)}
-        alt=""
+        alt={props.name}
         className="rounded-lg border-2 w-full h-full object-cover"
       />
-      <div className="absolute top-0 left-0  w-full h-full rounded-lg">
-        <button className="absolute bottom-2 right-2 rounded-full w-10 h-10 bg-aera-gray-0 flex items-center justify-center">
+      <div className="absolute top-0 left-0 w-full h-full rounded-lg">
+        <button 
+          className="absolute bottom-2 right-2 z-20 rounded-full w-10 h-10 bg-aera-gray-0 flex items-center justify-center" 
+          onClick={(e) => {
+            e.stopPropagation(); 
+            props.handleRemove(); 
+          }}>
           <Trash />
         </button>
       </div>

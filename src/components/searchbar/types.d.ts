@@ -21,5 +21,9 @@ interface GameDetail extends Game {
     screenshots: Screenshots[],
     similar_games: SimilarGame[],
     platforms: Array<number>,
-    rating: number
+    rating: number,
+    first_release_date: number
+}
+interface GameWithTimestamp extends GameDetail {
+    timestamp: number;
 }

@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
 
     // Verifica si hay resultados antes de responder
     if (!igdbResponse.data || igdbResponse.data.length === 0) {
-      return NextResponse.json({ status: 404, message: 'No se encontraron resultados' });
+      return NextResponse.json({ status: 200, data: [] });
     }
 
     return NextResponse.json({ data: igdbResponse.data , status: 200});

@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
   try {
     const igdbResponse = await axiosInstance.post(
       'https://api.igdb.com/v4/games',
-      `fields name, category, rating, similar_games.name, similar_games.cover.image_id, 
+      `fields name, category, rating, similar_games.name, similar_games.cover.image_id, first_release_date,
       platforms.name, cover.image_id, franchise, screenshots.image_id; where id = ${id};`
     );
 

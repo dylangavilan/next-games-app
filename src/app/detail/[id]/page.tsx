@@ -15,7 +15,7 @@ function Page({}: Props) {
   const [isCollected, setIsCollected] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [game, setGame] = useState<GameDetail | null>(null)
-  const { addGame, savedGames } = useGameStore(state => state)
+  const { addGame, savedGames, removeGame, isLoading } = useGameStore(state => state)
   
   useEffect(() => {
     if(id && typeof id === 'string') {
@@ -23,7 +23,7 @@ function Page({}: Props) {
       getGameByID(id)
       .then((response: GameDetail) => { 
         setGame(response);
-        setIsCollected(savedGames.some((game: Game) => game.id === response.id))
+        setIsCollected(useGameStore.getState().savedGames.some((savedGame: Game) => savedGame.id == response.id))
       })
       .finally(() => setIsFetching(false))
     }
@@ -31,20 +31,27 @@ function Page({}: Props) {
 
   const handleCollect = () => {
     if(!game) return;
-    addGame(game)
+
+    if(isCollected){
+      removeGame(game.id)
+    } else {
+      addGame(game)
+    }
+    setIsCollected(savedGames.some((savedGame: Game) => savedGame.id == game.id))
     //logica de toast
   }
+
   if(isFetching) {
     return <div> is Fetching </div>
   }
-  
+
   return (
     <div className='flex flex-col gap-6'>
       {game &&
         <>
           <Game cover={getCover('cover_small', game.cover.image_id)} name={game.name} enterprise='Rockstar' />
-          <Button variant={isCollected ? 'primary' : 'secondary'} onClick={handleCollect}>
-            {isCollected ? 'Collect game' : 'Game collected'}
+          <Button variant={!isCollected ? 'primary' : 'secondary'} onClick={handleCollect} loading={isLoading}>
+            {!isCollected ? 'Collect game' : 'Game collected'}
           </Button>
         </>
 
