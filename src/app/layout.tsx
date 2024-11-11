@@ -33,10 +33,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased p-4`}
       >
         <Header>
-
           <Searchbar/>
         </Header>
-        {children}
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   );

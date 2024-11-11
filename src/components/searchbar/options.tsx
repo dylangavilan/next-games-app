@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from 'react'
+import SelectItem from './option-item';
 
 type Props = {
     optionsLength: number;
@@ -13,4 +14,5 @@ const Select = ({ optionsLength = 0, children }: Props) => {
   )
 }
 
+Select.Item = SelectItem
 export default Select

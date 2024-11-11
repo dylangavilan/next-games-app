@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 
 type Props = {
-    handleSelect: () => void;
+    handleSelect?: () => void;
 } & PropsWithChildren;
 
 const SelectItem = ({ children, handleSelect }: Props) => {

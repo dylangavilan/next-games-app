@@ -1,0 +1,1 @@
+type Chip = 'genre' | 'release' | 'rating'

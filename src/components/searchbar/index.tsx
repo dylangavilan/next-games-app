@@ -1,10 +1,9 @@
 'use client'
 import React, { ChangeEvent, useState } from 'react'
 import Select from './options'
-import SelectItem from './option-item'
 import { searchGames } from '@/services/api'
 import OptionImage from './option-image'
-import { Search } from 'lucide-react';
+import { Circle, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
@@ -14,8 +13,8 @@ const Searchbar = (props: Props) => {
   const router = useRouter()
   const [isFocus, setIsFocus] = useState<boolean>(false)
   const [games, setGames] = useState<Array<Game>>([])
-  const [isFetching, setIsFetching] = useState<boolean>(false)
-  const [input, setInput] = useState<string>('')
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+
   const getList = async (input: string) => {
     setIsFetching(true)
     try {
@@ -57,17 +56,19 @@ const Searchbar = (props: Props) => {
                          games.length > 0 && '!border-aera-pink-600 rounded-b-none')}
                onChange={handleChange}
                />
-        {games?.length > 0 && 
+        {games?.length > 0 || !isFetching && 
             <Select optionsLength={games.length}>
+                <Select.Item>
+                    <Circle />
+                </Select.Item>
                 {games?.map((game) => (
-                <SelectItem key={game.id} handleSelect={() => handleSelect(game)}>
+                <Select.Item key={game.id} handleSelect={() => handleSelect(game)}>
                         {game.cover && (
                             <OptionImage cover={game.cover}/>
                         )}
                         {game.name}
-                </SelectItem>
+                </Select.Item>
                 ))}
-
             </Select>
         }
      </div>

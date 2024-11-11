@@ -2,12 +2,12 @@ import React, { PropsWithChildren } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 type Props = {
-    style?: string
+    className?: string
 } & PropsWithChildren
 
-function H4({ children, style }: Props) {
+function H4({ children, className }: Props) {
   return (
-    <h1 className={twMerge('text-sm md:text-base font-medium', style)}>{children}</h1>
+    <h1 className={twMerge('text-sm md:text-base font-medium', className)}>{children}</h1>
   )
 }
 
