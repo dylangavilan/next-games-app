@@ -3,8 +3,6 @@
 import axios from "axios";
 import { cache } from "react";
 
-const API_URL = '/api/igdb'; // Ajusta esta ruta si es necesario
-
 export async function searchGames(input: string): Promise<Game[]> {
     try {
         const response = await axios.get('/api/igbd?search=' + encodeURIComponent(input));
