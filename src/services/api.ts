@@ -21,6 +21,7 @@ export async function searchGames(input: string): Promise<Game[]> {
 }
 
 export const getGameByID = cache(async (id: string) => {
-    const response =  await axios.get(`http://localhost:3000/api/igbd/${id}`)
+    const baseUrl = process.env.API_BASE_URL || 'http://localhost:3000';
+    const response = await axios.get(`${baseUrl}/api/igbd/${id}`);
     return response.data.data;
-})
+});

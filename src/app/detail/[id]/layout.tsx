@@ -4,6 +4,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import axios from "axios";
 import { PropsWithChildren } from "react";
 import { getGameByID } from "@/services/api";
+import { getCover } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,25 +20,25 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   try {
     const id = (await params).id
-    const data  = await getGameByID(id);
-    // Extender la metadata previa en lugar de reemplazarla
+    const data: GameDetail  = await getGameByID(id);
     const previousImages = (await parent).openGraph?.images || [];
 
     return {
       title: data.name,
       openGraph: {
-        images: ['/some-specific-page-image.jpg', ...previousImages],
+        images: [getCover('cover_small', data.cover.image_id), ...previousImages],
+        title: data.name,
+        description: data.summary
       },
     };
   } catch (err) {
-    console.log(err);
     return {
       title: 'Gaming Haven Z',
     };
   }
 }
 
-export default function Layout({ children, params, searchParams }: Props) {
+export default function Layout({ children }: Props) {
   return (
     <main className={inter.className}>
      {children}
