@@ -1,7 +1,5 @@
 'use client'
 import React, { PropsWithChildren } from 'react'
-import Image from 'next/image'
-import logo from "@/assets/logo-mobile.png"
 import { usePathname, useRouter } from 'next/navigation'
 import H1 from './h1'
 import { ArrowLeft } from 'lucide-react'

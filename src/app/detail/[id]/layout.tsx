@@ -1,25 +1,23 @@
-// app/layout.tsx
 import { Inter } from "next/font/google";
 import type { Metadata, ResolvingMetadata } from "next";
-import axios from "axios";
-import { PropsWithChildren } from "react";
 import { getGameByID } from "@/services/api";
 import { getCover } from "@/lib/utils";
+import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 type Props = {
   children: React.ReactNode;
-  params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ id: string }>;
 };
 
 export async function generateMetadata(
-  { params }: Omit<Props, 'children'>,
+  props: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   try {
-    const id = (await params).id
+    const params = await props.params
+    const id = params.id
     const data: GameDetail  = await getGameByID(id);
     const previousImages = (await parent).openGraph?.images || [];
 
@@ -31,14 +29,14 @@ export async function generateMetadata(
         description: data.summary
       },
     };
-  } catch (err) {
+  } catch {
     return {
       title: 'Gaming Haven Z',
     };
   }
 }
 
-export default function Layout({ children }: Props) {
+export default function RootLayout({ children }: { children: ReactNode}) {
   return (
     <main className={inter.className}>
      {children}

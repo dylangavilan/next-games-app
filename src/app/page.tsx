@@ -4,16 +4,16 @@ import Tabs from '@/components/tabs'
 import { useGameStore } from '@/store/useGamesStore'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useMemo, useState } from 'react'
-type Props = {}
+
 type Option = 'newest' | 'last_added' | 'oldest'
-const Home = (props: Props) => {
+
+const Home = () => {
   const { savedGames, removeGame } = useGameStore(state => state)
   const [games, setGames] = useState<GameWithTimestamp[]>(savedGames)
   const router = useRouter()
 
   useEffect(() =>{
     setGames(savedGames)
-    sortLastAdded()
   }, [savedGames])
   
 
@@ -56,7 +56,7 @@ const Home = (props: Props) => {
   return (
     <div className='flex flex-col gap-4 lg:items-center'>
       <Tabs handleSort={handleSort}/>
-      <div className='grid grid-cols-3 md:grid-cols-4 gap-3'>
+      <div className='grid grid-cols-3 lg:grid-cols-4 gap-3'>
         {games?.map((game: Game) => (
             <Card {...game} key={game.id} handleRemove={() => removeGame(game.id)} onClick={() => router.push('/detail/' + game.id)} />
         ))}

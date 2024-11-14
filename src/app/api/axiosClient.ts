@@ -23,13 +23,13 @@ async function fetchAccessToken() {
 
 axiosInstance.interceptors.request.use(async (config) => {
   if (!accessToken || Date.now() >= (tokenExpiresAt || 0)) {
-    await fetchAccessToken(); // Fetch a new access token if expired
+    await fetchAccessToken();
   }
 
   if (accessToken) {
     config.headers['Authorization'] = `Bearer ${accessToken}`;
   }
-  config.headers['Client-ID'] = "62ux89s11tlzop2gw1xvd83llqursu";
+  config.headers['Client-ID'] = client_id;
   config.headers['Content-Type'] = 'text/plain'
   return config;
 }, (error) => {

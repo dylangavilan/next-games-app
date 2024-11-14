@@ -10,10 +10,9 @@ import Chip from '@/components/detail/chip';
 import H2 from '@/components/h2';
 import H4 from '@/components/h4';
 import { getDate, parseGenres, parsePlatforms } from './utils';
+import Image from 'next/image';
 
-type Props = {}
-
-function Page({}: Props) {
+function Page() {
   const { id } = useParams()
   const [isCollected, setIsCollected] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState<boolean>(false)
@@ -34,7 +33,7 @@ function Page({}: Props) {
       })
       .finally(() => setIsFetching(false))
     }
-  }, [])
+  }, [id])
 
   const handleCollect = () => {
     if(game){
@@ -84,7 +83,7 @@ function Page({}: Props) {
             <H2>Similar games</H2>
             <div className='lg:ca gap-2 grid grid-cols-3 lg:grid-cols-4'>
               {game.similar_games?.map((game: SimilarGame) => (
-                <img key={game.cover.image_id} src={getCover('cover_big', game.cover.image_id)} className='w-32 h-40 lg:w-[170px] lg:h-[226px] rounded-lg' alt='similar game'/>
+                <Image key={game.cover.image_id} src={getCover('cover_big', game.cover.image_id)} className='w-32 h-40 lg:w-[170px] lg:h-[226px] rounded-lg' alt='similar game'/>
               ))}
             </div>
           </div>

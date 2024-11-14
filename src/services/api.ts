@@ -11,10 +11,10 @@ export async function searchGames(input: string): Promise<Game[]> {
         } else {
             throw new Error(response.data.message || 'Error en la respuesta de la API');
         }
-    } catch (err: any) {
+    } catch (err) {
         console.error('Error fetching games:', err);
-        const errorMessage = err.response?.data?.error || 'Error inesperado';
-        throw new Error(errorMessage);
+        throw new Error('Ocurrio un error')  
+        // cache;
     }
 }
 

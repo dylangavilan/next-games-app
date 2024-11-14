@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react'
 import SelectItem from './option-item';
 
 type Props = {
-    options: Array<any> | null;
+    options: Game[] | null;
     isLoading: boolean;
 } & PropsWithChildren
 

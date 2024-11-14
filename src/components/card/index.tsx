@@ -1,5 +1,6 @@
 import { getCover } from '@/lib/utils'
 import { Trash } from 'lucide-react';
+import Image from 'next/image';
 import React from 'react'
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
 export default function Card(props: Props) {
   return (
     <div className="relative lg:w-[170px] lg:h-[226px] w-28 h-[9.5rem] cursor-pointer" onClick={props.onClick}>
-      <img
+      <Image
         src={getCover('cover_big', props.cover.image_id)}
         alt={props.name}
         className="rounded-lg border-2 w-full h-full object-cover "

@@ -51,7 +51,7 @@ export default function Tabs({handleSort}: Props) {
             key={option.title}
             label={option.title}
             selected={selected === option.title}
-            onClick={() => {setSelected(option.title), handleSort(option.method)}}
+            onClick={() => { setSelected(option.title); handleSort(option.method)}}
           />
         ))}
       </div>
