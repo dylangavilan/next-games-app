@@ -51,7 +51,7 @@ function Page({}: Props) {
   }
 
   if(isFetching) {
-    return <div> is Fetching </div>
+    return <div className='bg-none min-h-screen'> is Fetching </div>
   }
 
   const parsePlatforms = (platforms: Platform[]) => {
@@ -80,7 +80,7 @@ function Page({}: Props) {
   
   
   return (
-    <div className='flex flex-col gap-6'>
+    <div className='flex flex-col gap-6 min-h-screen'>
       {game &&
         <>
           <Game cover={getCover('cover_small', game.cover.image_id)} name={game.name} enterprise='Rockstar' />
@@ -88,9 +88,9 @@ function Page({}: Props) {
             {!isCollected ? 'Collect game' : 'Game collected'}
           </Button>
           <div className='flex flex-wrap gap-2'>
-            <Chip type='rating' value={game?.rating?.toFixed(2) ?? 'Not yet'} />
-            <Chip type='genre' value={parseGenres(game.genres)} />
+            <Chip type='rating' value={game?.rating?.toFixed(1) ?? 'None'} />
             <Chip type='release' value={game.first_release_date ? getDate(game.first_release_date) : 'Not available'} />
+            <Chip type='genre' value={parseGenres(game.genres)} />
           </div>
           <div>
             <H2>Summary</H2>

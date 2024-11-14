@@ -44,8 +44,8 @@ const Searchbar = () => {
   const ref = useOutsideClick(() => setGames(null));
 
   return (
-    <div className="relative w-full max-w-sm pb-8 z-50" ref={ref} >
-        <div className="absolute inset-y-0 left-3 bottom-8 flex items-center pointer-events-none">
+    <div className="relative w-full max-w-sm z-50" ref={ref} >
+        <div className="absolute inset-y-0  left-3 bottom-0 flex items-center pointer-events-none">
             <Search className={cn(isFocus ? 'text-aera-violet-600' : 'text-aera-gray-200', 'w-4 transition-all duration-300' )} />
         </div>
         <input type='search' 

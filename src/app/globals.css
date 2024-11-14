@@ -71,6 +71,7 @@ body {
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: top;
+    @apply gap-6 flex flex-col
   }
     @media (max-width: 1028px) {
       body {

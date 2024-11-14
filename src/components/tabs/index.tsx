@@ -44,7 +44,7 @@ export default function Tabs({handleSort}: Props) {
   
   return (
     <div className="flex flex-col items-left gap-4">
-      <h2 className="text-lg font-semibold text-aera-violet-900 lg:text-center">Saved games</h2>
+      <h2 className="text-lg font-semibold text-aera-violet-600 lg:text-center">Saved games</h2>
       <div className="flex gap-2">
         {options.map((option) => (
           <FilterButton

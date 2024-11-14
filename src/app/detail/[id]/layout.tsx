@@ -19,10 +19,10 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   try {
     const id = (await params).id
-    const data = await getGameByID(id);
+    const data  = await getGameByID(id);
     // Extender la metadata previa en lugar de reemplazarla
     const previousImages = (await parent).openGraph?.images || [];
-    
+
     return {
       title: data.name,
       openGraph: {
@@ -32,7 +32,7 @@ export async function generateMetadata(
   } catch (err) {
     console.log(err);
     return {
-      title: 'Hola',
+      title: 'Gaming Haven Z',
     };
   }
 }
