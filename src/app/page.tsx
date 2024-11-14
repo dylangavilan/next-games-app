@@ -56,7 +56,7 @@ const Home = (props: Props) => {
   return (
     <div className='flex flex-col gap-4 lg:items-center'>
       <Tabs handleSort={handleSort}/>
-      <div className='grid grid-cols-3 lg:grid-cols-4 gap-3'>
+      <div className='grid grid-cols-3 md:grid-cols-4 gap-3'>
         {games?.map((game: Game) => (
             <Card {...game} key={game.id} handleRemove={() => removeGame(game.id)} onClick={() => router.push('/detail/' + game.id)} />
         ))}

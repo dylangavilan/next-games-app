@@ -1,10 +1,11 @@
+import { LoaderCircle } from 'lucide-react'
 import React from 'react'
 
 type Props = {}
 
 const Loading = (props: Props) => {
   return (
-    <div>loading</div>
+    <LoaderCircle className='animation-spin'/>
   )
 }
 

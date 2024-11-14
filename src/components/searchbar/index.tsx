@@ -7,6 +7,7 @@ import { LoaderCircle, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
+import { useDebounceCallback } from 'usehooks-ts'
 
 
 const Searchbar = () => {
@@ -14,7 +15,6 @@ const Searchbar = () => {
   const [isFocus, setIsFocus] = useState<boolean>(false)
   const [games, setGames] = useState<Array<Game> | null>(null)
   const [isFetching, setIsFetching] = useState<boolean>(false);
-
   const getList = async (input: string) => {
     setIsFetching(true)
     try {
@@ -33,14 +33,15 @@ const Searchbar = () => {
     router.push('/detail/' + game.id)
     setGames(null)    
   }
-
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    if(e.target.value.length > 3){
-        getList(e.target.value)
-    } else {
-        setGames(null)
+      if(e.target.value.length > 3){
+          getList(e.target.value)
+        } else {
+            setGames(null)
+        }
     }
-  }
+  const debounced = useDebounceCallback(handleChange, 700)
+
   const ref = useOutsideClick(() => setGames(null));
 
   return (
@@ -50,9 +51,11 @@ const Searchbar = () => {
         </div>
         <input type='search' 
                placeholder='Search games...' 
+               onFocus={() => setIsFocus(true)}
+               onBlur={() => setIsFocus(false)}
                className={cn('rounded-[20px] border-2 px-2 w-full py-2.5 pl-8 outline-none  border-aero-pink-200 focus:border-aero-violet-900', 
                          (games || isFetching) && '!border-aero-pink-600 rounded-b-none')}
-               onChange={handleChange}
+               onChange={debounced}
         />
             
         <Select options={games} isLoading={isFetching}>

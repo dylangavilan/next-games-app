@@ -1,5 +1,4 @@
 'use client'
-import axios from 'axios';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import Game from '@/components/detail/game';
@@ -10,7 +9,7 @@ import { getCover } from '@/lib/utils';
 import Chip from '@/components/detail/chip';
 import H2 from '@/components/h2';
 import H4 from '@/components/h4';
-import { platform } from 'os';
+import { getDate, parseGenres, parsePlatforms } from './utils';
 
 type Props = {}
 
@@ -19,7 +18,7 @@ function Page({}: Props) {
   const [isCollected, setIsCollected] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [game, setGame] = useState<GameDetail | null>(null)
-  const { addGame, savedGames, removeGame, isLoading } = useGameStore(state => state)
+  const { addGame, removeGame, isLoading } = useGameStore(state => state)
   
   const checkIsCollected = (gameId: number) => {
     return useGameStore.getState().savedGames.some((savedGame: Game) => savedGame.id ==gameId)
@@ -39,14 +38,13 @@ function Page({}: Props) {
 
   const handleCollect = () => {
     if(game){
-    
-    if(isCollected){
-      removeGame(game.id)
-    } else {
-      addGame(game)
+      if(isCollected){
+        removeGame(game.id)
+      } else {
+        addGame(game)
+      }
+      setIsCollected(checkIsCollected(game.id))
     }
-    setIsCollected(checkIsCollected(game.id))
-  }
     //logica de toast
   }
 
@@ -54,30 +52,7 @@ function Page({}: Props) {
     return <div className='bg-none min-h-screen'> is Fetching </div>
   }
 
-  const parsePlatforms = (platforms: Platform[]) => {
-   if(platforms) {
-     const names = platforms.map((platform) => platform.name)
-     return names.join(', ')
-   } 
-   return 'Platforms not availables'
-  }
 
-  const parseGenres = (genres: Genre[]) => {
-    if(genres) {
-      const names = genres.map((genre) => genre.name)
-      return names.length > 1 ? names.slice(0, -1).join(', ') + ' & ' + names.slice(-1) : names.join('')
-    }
-    return 'Not genres'
-  }
-
-  const getDate = (timestamp: number) => {
-    const fecha = new Date(timestamp * 1000); 
-    const day = String(fecha.getDate()).padStart(2, '0');
-    const month = String(fecha.getMonth() + 1).padStart(2, '0');
-    const year = fecha.getFullYear();
-    return `${day}/${month}/${year}`;
-  }
-  
   
   return (
     <div className='flex flex-col gap-6 min-h-screen'>
@@ -104,6 +79,7 @@ function Page({}: Props) {
               {parsePlatforms(game.platforms)}
             </H4>
           </div>
+
           <div className='flex flex-col gap-4'>
             <H2>Similar games</H2>
             <div className='lg:ca gap-2 grid grid-cols-3 lg:grid-cols-4'>
