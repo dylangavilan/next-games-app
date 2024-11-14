@@ -24,11 +24,11 @@ const Header = ({children}: Props) => {
                     <div className='flex items-center gap-2'>
                     {/* <Image src={logo} alt="" width={24} height={24} /> */}
                     <IconHeader />
-                    <H1 className='text-aera-violet-600'>
+                    <H1 className='text-aero-violet-600'>
                         Gaming Haven Z
                     </H1>
                     </div> :
-                    <button className='flex gap-2 items-center text-aera-violet-600 font-bold' onClick={router.back}>
+                    <button className='flex gap-2 items-center text-aero-violet-600 font-bold' onClick={router.back}>
                         <ArrowLeft className=''/>
                         Back
                     </button>

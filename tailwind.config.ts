@@ -10,29 +10,29 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-			"aera-gray": { 
+			"aero-gray": { 
 				0: "#FFFFFF",
 				200: "#E5E5E5",
 				500: "#5C5C5C",
 				1000: "#000000"
 			},
-			"aera-pink": {
+			"aero-pink": {
 				50: "#FF00AE80",
 				100: "#E7C0DB",
 				200: "#C698B8",
 				600: "#FF00AE"
 			},
-			"aera-violet": {
+			"aero-violet": {
 				50: "#E2DCE7",
 				100: "#E7C0DB",
 				300: "#775C90",
 				600: "#6727A6",
 				900: "#3C1661"
 			},
-			"aera-red": {
+			"aero-red": {
 				600: "#D23F63"
 			},
-			"aera-green": {
+			"aero-green": {
 				600: "#67C076"
 			},
   			background: 'hsl(var(--background))',

@@ -17,7 +17,7 @@ export default function Card(props: Props) {
       />
       <div className="absolute top-0 left-0 w-full h-full rounded-lg">
         <button 
-          className="absolute bottom-2 right-2 z-20 rounded-full w-10 h-10 bg-aera-gray-0 flex items-center justify-center" 
+          className="absolute bottom-2 right-2 z-20 rounded-full w-10 h-10 bg-aero-gray-0 flex items-center justify-center" 
           onClick={(e) => {
             e.stopPropagation(); 
             props.handleRemove(); 

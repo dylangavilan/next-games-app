@@ -6,8 +6,8 @@ const buttonStyles = cva(
   {
     variants: {
       selected: {
-        true: 'bg-aera-violet-900 text-white',
-        false: 'text-aera-violet-900 hover:bg-aera-violet-100',
+        true: 'bg-aero-violet-900 text-white',
+        false: 'text-aero-violet-900 hover:bg-aero-violet-100',
       },
     },
     defaultVariants: {
@@ -44,7 +44,7 @@ export default function Tabs({handleSort}: Props) {
   
   return (
     <div className="flex flex-col items-left gap-4">
-      <h2 className="text-lg font-semibold text-aera-violet-600 lg:text-center">Saved games</h2>
+      <h2 className="text-lg font-semibold text-aero-violet-600 lg:text-center">Saved games</h2>
       <div className="flex gap-2">
         {options.map((option) => (
           <FilterButton

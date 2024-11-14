@@ -46,19 +46,19 @@ const Searchbar = () => {
   return (
     <div className="relative w-full max-w-sm z-50" ref={ref} >
         <div className="absolute inset-y-0  left-3 bottom-0 flex items-center pointer-events-none">
-            <Search className={cn(isFocus ? 'text-aera-violet-600' : 'text-aera-gray-200', 'w-4 transition-all duration-300' )} />
+            <Search className={cn(isFocus ? 'text-aero-violet-600' : 'text-aero-gray-200', 'w-4 transition-all duration-300' )} />
         </div>
         <input type='search' 
                placeholder='Search games...' 
-               className={cn('rounded-[20px] border-2 px-2 w-full py-2.5 pl-8 outline-none  border-aera-pink-200 focus:border-aera-violet-900', 
-                         (games || isFetching) && '!border-aera-pink-600 rounded-b-none')}
+               className={cn('rounded-[20px] border-2 px-2 w-full py-2.5 pl-8 outline-none  border-aero-pink-200 focus:border-aero-violet-900', 
+                         (games || isFetching) && '!border-aero-pink-600 rounded-b-none')}
                onChange={handleChange}
         />
             
         <Select options={games} isLoading={isFetching}>
             {isFetching ? 
                 <Select.Item>
-                    <LoaderCircle className='mx-auto animate-spin text-aera-gray-200'/>
+                    <LoaderCircle className='mx-auto animate-spin text-aero-gray-200'/>
                 </Select.Item> 
             :
             games?.map((game) => (

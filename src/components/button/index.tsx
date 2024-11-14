@@ -13,8 +13,8 @@ const button = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-aera-violet-900 text-white',
-        secondary: 'border border-aera-violet-900 text-aera-violet-900 bg-white',
+        primary: 'bg-aero-violet-900 text-white',
+        secondary: 'border border-aero-violet-900 text-aero-violet-900 bg-white',
       },
       fit: {
         true: 'w-full',
