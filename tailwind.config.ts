@@ -17,7 +17,7 @@ const config: Config = {
 				1000: "#000000"
 			},
 			"aera-pink": {
-				50: "#FF00AE - 50%",
+				50: "#FF00AE80",
 				100: "#E7C0DB",
 				200: "#C698B8",
 				600: "#FF00AE"

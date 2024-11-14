@@ -17,12 +17,22 @@ type SimilarGame = {
     name: string,
     cover: Cover,
 }
+type Platform = {
+    id: number, 
+    name: string
+}
+type Genre = {
+    id: number,
+    name: string,
+}
 interface GameDetail extends Game {
     screenshots: Screenshots[],
     similar_games: SimilarGame[],
-    platforms: Array<number>,
+    platforms: Array<Platform>,
     rating: number,
     first_release_date: number
+    summary: string
+    genres: Array<Genre>
 }
 interface GameWithTimestamp extends GameDetail {
     timestamp: number;

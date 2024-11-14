@@ -10,6 +10,7 @@ import { getCover } from '@/lib/utils';
 import Chip from '@/components/detail/chip';
 import H2 from '@/components/h2';
 import H4 from '@/components/h4';
+import { platform } from 'os';
 
 type Props = {}
 
@@ -53,6 +54,31 @@ function Page({}: Props) {
     return <div> is Fetching </div>
   }
 
+  const parsePlatforms = (platforms: Platform[]) => {
+   if(platforms) {
+     const names = platforms.map((platform) => platform.name)
+     return names.join(', ')
+   } 
+   return 'Platforms not availables'
+  }
+
+  const parseGenres = (genres: Genre[]) => {
+    if(genres) {
+      const names = genres.map((genre) => genre.name)
+      return names.length > 1 ? names.slice(0, -1).join(', ') + ' & ' + names.slice(-1) : names.join('')
+    }
+    return 'Not genres'
+  }
+
+  const getDate = (timestamp: number) => {
+    const fecha = new Date(timestamp * 1000); 
+    const day = String(fecha.getDate()).padStart(2, '0');
+    const month = String(fecha.getMonth() + 1).padStart(2, '0');
+    const year = fecha.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+  
+  
   return (
     <div className='flex flex-col gap-6'>
       {game &&
@@ -62,13 +88,29 @@ function Page({}: Props) {
             {!isCollected ? 'Collect game' : 'Game collected'}
           </Button>
           <div className='flex flex-wrap gap-2'>
-            <Chip type='rating' value={'9/16/2013'} />
-            <Chip type='rating' value={'9/16/2013'} />
-            <Chip type='rating' value={'9/16/2013'} />
+            <Chip type='rating' value={game?.rating?.toFixed(2) ?? 'Not yet'} />
+            <Chip type='genre' value={parseGenres(game.genres)} />
+            <Chip type='release' value={game.first_release_date ? getDate(game.first_release_date) : 'Not available'} />
           </div>
           <div>
             <H2>Summary</H2>
-            <H4 className='text-[#666666]'>Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty and cheap reality TV. The game blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.</H4>
+            <H4 className='text-[#666666]'>
+              {game.summary}
+            </H4>
+          </div>
+          <div>
+            <H2>Platforms</H2>
+            <H4 className='text-[#666666]'>
+              {parsePlatforms(game.platforms)}
+            </H4>
+          </div>
+          <div className='flex flex-col gap-4'>
+            <H2>Similar games</H2>
+            <div className='lg:ca gap-2 grid grid-cols-3 lg:grid-cols-4'>
+              {game.similar_games?.map((game: SimilarGame) => (
+                <img key={game.cover.image_id} src={getCover('cover_big', game.cover.image_id)} className='w-32 h-40 lg:w-[170px] lg:h-[226px] rounded-lg' alt='similar game'/>
+              ))}
+            </div>
           </div>
         </>
 

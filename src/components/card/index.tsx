@@ -9,11 +9,11 @@ type Props = {
 
 export default function Card(props: Props) {
   return (
-    <div className="relative w-28 h-[9.5rem]" onClick={props.onClick}>
+    <div className="relative lg:w-[170px] lg:h-[226px] w-28 h-[9.5rem] cursor-pointer" onClick={props.onClick}>
       <img
-        src={getCover('cover_small', props.cover.image_id)}
+        src={getCover('cover_big', props.cover.image_id)}
         alt={props.name}
-        className="rounded-lg border-2 w-full h-full object-cover"
+        className="rounded-lg border-2 w-full h-full object-cover "
       />
       <div className="absolute top-0 left-0 w-full h-full rounded-lg">
         <button 

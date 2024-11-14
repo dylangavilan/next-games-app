@@ -12,7 +12,7 @@ const Header = ({children}: Props) => {
   const pathname = usePathname()
   const router = useRouter()
   return (
-    <header className='flex flex-col gap-5'>
+    <header className='flex flex-col gap-5 lg:items-center'>
         <nav className='flex items-center'>
             {
                 pathname === '/' ?

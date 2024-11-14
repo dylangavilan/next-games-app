@@ -11,13 +11,12 @@ const Chip = ({ type, value }: Props) => {
       release: <Calendar />,
       rating: <Star />
   };
-  console.log(type)
+
   return (
     <p className='flex items-center py-2 px-3 gap-1 capitalize font-medium border rounded-[100px] border-aera-gray-200'>
         <span className='flex gap-2 text-aera-violet-600 text-base items-center'>{variants[type]} {type}:{"  "} </span>
         <span className='text-aera-violet-900 text-base'>{value}</span>
-    </p>
-        
+    </p> 
   )
 }
 

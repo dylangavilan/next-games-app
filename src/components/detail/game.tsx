@@ -11,7 +11,7 @@ type Props = {
 const Game = ({ cover, name, enterprise }: Props) => {
   return (
     <div className='flex gap-4'>
-        <img src={cover} alt="" className='rounded-lg' />
+        <img src={cover} alt={'cover ' + name} className='rounded-lg' />
         <div>
             <H1 className='text-aera-violet-600'>{name}</H1>
             <H3 className='text-aera-violet-300'>{enterprise}</H3>

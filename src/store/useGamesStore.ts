@@ -21,8 +21,8 @@ export const useGameStore = create<AppState>()(
           }
           return {
             savedGames: [
-              ...state.savedGames,
               { ...game, timestamp: Date.now() },
+              ...state.savedGames,
             ],
             isLoading: false,
           };

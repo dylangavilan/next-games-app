@@ -21,15 +21,6 @@ export async function searchGames(input: string): Promise<Game[]> {
 }
 
 export const getGameByID = cache(async (id: string) => {
-    console.log(id);
-    // VISIBLE IN TERMINAL
-    console.log("GetUserByID HIT (cached) : ", new Date().toLocaleTimeString());
     const response =  await axios.get(`http://localhost:3000/api/igbd/${id}`)
     return response.data.data;
-
 })
-
-// export async function getGameByID(id: string): Promise<GameDetail> {
-//     const response =  await axios.get(`/api/igbd/${id}`)
-//     return response.data.data;
-// }

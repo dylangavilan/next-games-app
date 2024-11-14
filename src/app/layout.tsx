@@ -35,7 +35,7 @@ export default function RootLayout({
         <Header>
           <Searchbar/>
         </Header>
-        <main>
+        <main className='lg:max-w-screen-md lg:mx-auto'>
           {children}
         </main>
       </body>

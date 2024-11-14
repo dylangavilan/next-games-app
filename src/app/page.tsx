@@ -13,6 +13,7 @@ const Home = (props: Props) => {
 
   useEffect(() =>{
     setGames(savedGames)
+    sortLastAdded()
   }, [savedGames])
   
   const sortLastAdded = useMemo(() => {
@@ -20,12 +21,18 @@ const Home = (props: Props) => {
   }, [games])
 
   const sortNewest = useMemo(() => {
-    return () => [...games].sort((a, b) => b.first_release_date - a.first_release_date)
-  }, [games])
-
+    return () =>
+      [...games].sort(
+        (a, b) => (b.first_release_date || 0) - (a.first_release_date || 0)
+      );
+  }, [games]);
+  
   const sortOldest = useMemo(() => {
-    return () => [...games].sort((a, b) => a.first_release_date - b.first_release_date)
-  }, [games])
+    return () =>
+      [...games].sort(
+        (a, b) => (a.first_release_date || 0) - (b.first_release_date || 0)
+      );
+  }, [games]);
 
   const handleSort = (option: Option) => {
     let sortFunction;
@@ -46,9 +53,9 @@ const Home = (props: Props) => {
   }
   
   return (
-    <main>
+    <main className='flex flex-col gap-4 lg:items-center'>
       <Tabs handleSort={handleSort}/>
-      <div className='flex gap-2'>
+      <div className='flex gap-2 flex-wrap'>
         {games?.map((game: Game) => (
             <Card {...game} key={game.id} handleRemove={() => removeGame(game.id)} onClick={() => router.push('/detail/' + game.id)} />
         ))}

@@ -2,13 +2,14 @@ import React, { PropsWithChildren } from 'react'
 import SelectItem from './option-item';
 
 type Props = {
-    optionsLength: number;
+    options: Array<any> | null;
+    isLoading: boolean;
 } & PropsWithChildren
 
-const Select = ({ optionsLength = 0, children }: Props) => {
+const Select = ({ options, children, isLoading }: Props) => {
   return (
     <ul className={`absolute w-full rounded-b-[20px] bg-white border px-2 py-1.5 
-                  border-aera-pink-600 overflow-y-auto shadow-lg max-h-60 ${optionsLength === 0 && 'hidden'}`}>
+                  border-aera-pink-600 overflow-y-auto shadow-lg max-h-60 ${!options && !isLoading && 'hidden'}`}>
         {children}
     </ul>
   )

@@ -22,7 +22,7 @@ export async function generateMetadata(
     const data = await getGameByID(id);
     // Extender la metadata previa en lugar de reemplazarla
     const previousImages = (await parent).openGraph?.images || [];
-    console.log(data)
+    
     return {
       title: data.name,
       openGraph: {

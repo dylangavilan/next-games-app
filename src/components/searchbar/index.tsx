@@ -3,16 +3,16 @@ import React, { ChangeEvent, useState } from 'react'
 import Select from './options'
 import { searchGames } from '@/services/api'
 import OptionImage from './option-image'
-import { Circle, Search } from 'lucide-react';
+import { LoaderCircle, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 
-type Props = {}
 
-const Searchbar = (props: Props) => {
+const Searchbar = () => {
   const router = useRouter()
   const [isFocus, setIsFocus] = useState<boolean>(false)
-  const [games, setGames] = useState<Array<Game>>([])
+  const [games, setGames] = useState<Array<Game> | null>(null)
   const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const getList = async (input: string) => {
@@ -31,46 +31,45 @@ const Searchbar = (props: Props) => {
 
   const handleSelect = (game: Game) => {
     router.push('/detail/' + game.id)
-    setGames([])
-    
+    setGames(null)    
   }
+
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if(e.target.value.length > 3){
         getList(e.target.value)
-    } else { 
-        setGames([])
+    } else {
+        setGames(null)
     }
   }
+  const ref = useOutsideClick(() => setGames(null));
 
   return (
-    <div className="relative w-full max-w-sm pb-8 z-50">
-        <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+    <div className="relative w-full max-w-sm pb-8 z-50" ref={ref} >
+        <div className="absolute inset-y-0 left-3 bottom-8 flex items-center pointer-events-none">
             <Search className={cn(isFocus ? 'text-aera-violet-600' : 'text-aera-gray-200', 'w-4 transition-all duration-300' )} />
         </div>
         <input type='search' 
                placeholder='Search games...' 
-               onFocus={() => setIsFocus(true)}
-               onBlur={() => setIsFocus(false)}
-               className={cn('rounded-[20px] border px-2 w-full py-2.5 pl-8 outline-none', 
-                         isFocus && 'border-aera-violet-900',
-                         games.length > 0 && '!border-aera-pink-600 rounded-b-none')}
+               className={cn('rounded-[20px] border-2 px-2 w-full py-2.5 pl-8 outline-none  border-aera-pink-200 focus:border-aera-violet-900', 
+                         (games || isFetching) && '!border-aera-pink-600 rounded-b-none')}
                onChange={handleChange}
-               />
-        {games?.length > 0 || !isFetching && 
-            <Select optionsLength={games.length}>
+        />
+            
+        <Select options={games} isLoading={isFetching}>
+            {isFetching ? 
                 <Select.Item>
-                    <Circle />
-                </Select.Item>
-                {games?.map((game) => (
+                    <LoaderCircle className='mx-auto animate-spin text-aera-gray-200'/>
+                </Select.Item> 
+            :
+            games?.map((game) => (
                 <Select.Item key={game.id} handleSelect={() => handleSelect(game)}>
                         {game.cover && (
-                            <OptionImage cover={game.cover}/>
+                             <OptionImage cover={game.cover}/>
                         )}
                         {game.name}
                 </Select.Item>
-                ))}
-            </Select>
-        }
+            ))}
+        </Select>
      </div>
   )
 }
