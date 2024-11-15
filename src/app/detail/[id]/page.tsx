@@ -11,6 +11,7 @@ import H2 from '@/components/h2';
 import H4 from '@/components/h4';
 import { getDate, parseGenres, parsePlatforms } from './utils';
 import Image from 'next/image';
+import { useToastStore } from '@/store/useToastStore';
 
 function Page() {
   const { id } = useParams()
@@ -18,7 +19,7 @@ function Page() {
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [game, setGame] = useState<GameDetail | null>(null)
   const { addGame, removeGame, isLoading } = useGameStore(state => state)
-  
+  const { addToast } = useToastStore(state => state)
   const checkIsCollected = (gameId: number) => {
     return useGameStore.getState().savedGames.some((savedGame: Game) => savedGame.id ==gameId)
   }
@@ -39,12 +40,13 @@ function Page() {
     if(game){
       if(isCollected){
         removeGame(game.id)
+        addToast('removed', 'Game uncollected', game.name + ' has been removed from your collection')
       } else {
         addGame(game)
+        addToast('added',  'Game collected', game.name + ' has been added to your collection')
       }
       setIsCollected(checkIsCollected(game.id))
     }
-    //logica de toast
   }
 
   if(isFetching) {
@@ -57,7 +59,7 @@ function Page() {
     <div className='flex flex-col gap-6 min-h-screen'>
       {game &&
         <>
-          <Game cover={getCover('cover_small', game.cover.image_id)} name={game.name} enterprise='Rockstar' />
+          <Game cover={getCover('cover_big', game.cover.image_id)} name={game.name} enterprise='Rockstar' />
           <Button variant={!isCollected ? 'primary' : 'secondary'} onClick={handleCollect} loading={isLoading}>
             {!isCollected ? 'Collect game' : 'Game collected'}
           </Button>
@@ -68,22 +70,27 @@ function Page() {
           </div>
           <div>
             <H2>Summary</H2>
-            <H4 className='text-[#666666]'>
+            <H4 className='text-aero-gray-400'>
               {game.summary}
             </H4>
           </div>
           <div>
             <H2>Platforms</H2>
-            <H4 className='text-[#666666]'>
+            <H4 className='text-aero-gray-400'>
               {parsePlatforms(game.platforms)}
             </H4>
           </div>
 
           <div className='flex flex-col gap-4'>
             <H2>Similar games</H2>
-            <div className='lg:ca gap-2 grid grid-cols-3 lg:grid-cols-4'>
+            <div className=' gap-2 grid grid-cols-3 lg:grid-cols-4'>
               {game.similar_games?.map((game: SimilarGame) => (
-                <Image key={game.cover.image_id} src={getCover('cover_big', game.cover.image_id)} className='w-32 h-40 lg:w-[170px] lg:h-[226px] rounded-lg' alt='similar game'/>
+                <div className='relative w-28 h-36 lg:w-[170px] lg:h-[226px]' key={game.cover.image_id}>
+                  <Image src={getCover('cover_big', game.cover.image_id)} 
+                    className='rounded-lg' 
+                    fill
+                    alt='similar game' />
+                </div>
               ))}
             </div>
           </div>

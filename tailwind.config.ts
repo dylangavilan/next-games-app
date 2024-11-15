@@ -13,6 +13,7 @@ const config: Config = {
 			"aero-gray": { 
 				0: "#FFFFFF",
 				200: "#E5E5E5",
+				400: "#666666",
 				500: "#5C5C5C",
 				1000: "#000000"
 			},

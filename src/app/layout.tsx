@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Searchbar from "@/components/searchbar";
 import Header from "@/components/header";
+import ToastComponent from "@/components/toast";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -30,6 +31,7 @@ export default function RootLayout({
         <main className='lg:max-w-screen-md lg:mx-auto'>
         {children}
         </main>
+        <ToastComponent />
       </body>
     </html>
   );

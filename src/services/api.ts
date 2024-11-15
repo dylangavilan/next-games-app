@@ -1,4 +1,5 @@
-// services/apiService.ts
+const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.NEXT_PUBLIC_BASE_API_URL;
+
 
 import axios from "axios";
 import { cache } from "react";
@@ -18,8 +19,9 @@ export async function searchGames(input: string): Promise<Game[]> {
     }
 }
 
+
 export const getGameByID = cache(async (id: string) => {
-    const baseUrl = process.env.API_BASE_URL || 'http://localhost:3000';
+    const baseUrl = API_URL;
     const response = await axios.get(`${baseUrl}/api/igbd/${id}`);
     return response.data.data;
 });

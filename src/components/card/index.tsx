@@ -14,6 +14,7 @@ export default function Card(props: Props) {
       <Image
         src={getCover('cover_big', props.cover.image_id)}
         alt={props.name}
+        fill
         className="rounded-lg border-2 w-full h-full object-cover "
       />
       <div className="absolute top-0 left-0 w-full h-full rounded-lg">

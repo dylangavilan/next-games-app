@@ -8,7 +8,9 @@ type Props = {
 
 const OptionImage = ({ cover }: Props) => {
   return (
-    <Image src={getCover('micro', cover.image_id)} alt={`${cover.id} cover`} className='rounded-[4px]'/>
+    <div className='relative w-10 h-10'>
+      <Image src={getCover('micro', cover.image_id)} alt={`${cover.id} cover`} className='rounded-[4px]' fill />
+    </div>
   )
 }
 

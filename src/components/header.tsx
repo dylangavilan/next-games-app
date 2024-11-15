@@ -20,7 +20,6 @@ const Header = ({children}: Props) => {
             {
                 pathname === '/' ?
                     <div className='flex items-center gap-2'>
-                    {/* <Image src={logo} alt="" width={24} height={24} /> */}
                     <IconHeader />
                     <H1 className='text-aero-violet-600'>
                         Gaming Haven Z

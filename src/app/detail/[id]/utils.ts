@@ -7,9 +7,12 @@ const parsePlatforms = (platforms: Platform[]) => {
    }
  
    const parseGenres = (genres: Genre[]) => {
+
      if(genres) {
-       const names = genres.map((genre) => genre.name)
-       return names.length > 1 ? names.slice(0, -1).join(', ') + ' & ' + names.slice(-1) : names.join('')
+        return genres.map(({ name }, i) => {
+            if (i === genres.length - 1 && genres.length > 1) return `& ${name}`;
+            return i === genres.length - 2 ? `${name} ` : `${name}, `;
+        }).join('').trim();
      }
      return 'Not genres'
    }

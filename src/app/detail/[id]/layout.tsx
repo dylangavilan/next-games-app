@@ -20,13 +20,18 @@ export async function generateMetadata(
     const id = params.id
     const data: GameDetail  = await getGameByID(id);
     const previousImages = (await parent).openGraph?.images || [];
+    const cover = getCover('cover_small', data.cover.image_id) ?? ''
+    const icon = getCover('micro', data.cover.image_id) ?? ''
 
     return {
       title: data.name,
       openGraph: {
-        images: [getCover('cover_small', data.cover.image_id), ...previousImages],
+        images: cover ? [cover, ...previousImages] : previousImages, 
         title: data.name,
         description: data.summary
+      },
+      icons: {
+        icon: icon ?? '/favicon.ico',
       },
     };
   } catch {
