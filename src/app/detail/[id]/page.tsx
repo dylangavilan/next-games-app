@@ -12,6 +12,7 @@ import { getDate, parseCompanies, parseGenres, parsePlatforms } from './utils';
 import Image from 'next/image';
 import { useToastStore } from '@/store/useToastStore';
 import { LoaderCircle } from 'lucide-react';
+import Screenshots from '@/components/detail/screenshots';
 
 function Page() {
   const { id } = useParams()
@@ -87,20 +88,31 @@ function Page() {
               {parsePlatforms(game.platforms)}
             </H4>
           </div>
-          <div className='flex flex-col gap-4'>
-            <H2>Similar games</H2>
-            <div className=' gap-2 grid grid-cols-3 sm:grid-cols-4'>
-              {game.similar_games?.map((game: SimilarGame) => (
-                <div className='relative w-28 h-36 sm:w-36 sm:h-44 md:w-[170px] md:h-[226px]' key={game.cover.image_id}>
-                  <Image src={getCover('cover_big', game.cover.image_id)} 
-                    className='rounded-lg' 
-                    fill
-                    sizes='(max-width:640px) 112px,'
-                    alt='similar game' />
-                </div>
-              ))}
+          {
+            game.screenshots && 
+              <div className='flex flex-col gap-4'>
+                  <H2>Media</H2>
+                  <Screenshots items={game.screenshots}/>
+              </div>
+          }
+          {game.similar_games?.length > 0 && 
+            <div className='flex flex-col gap-4'>
+              <H2>Similar games</H2>
+              <div className=' gap-2 grid grid-cols-3 sm:grid-cols-4'>
+                {game.similar_games.map((game: SimilarGame) => (
+                  <Image
+                    key={game.cover.image_id}
+                    src={getCover('cover_big', game.cover.image_id)}
+                    alt="Similar game"
+                    className="rounded-lg"
+                    width={170}
+                    height={226} 
+                    sizes="(max-width: 640px) 112px, (max-width: 1024px) 170px"
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          }
         </>
       }
     </div>

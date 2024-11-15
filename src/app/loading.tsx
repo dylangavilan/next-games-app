@@ -1,9 +1,11 @@
 import { LoaderCircle } from 'lucide-react'
 import React from 'react'
 
-const Loading = () => {
+function Loading() {
   return (
-    <LoaderCircle className='animate-spin'/>
+    <div className='bg-none min-h-screen flex flex-col items-center'> 
+        <LoaderCircle className='animate-spin mx-auto'/>
+    </div>
   )
 }
 

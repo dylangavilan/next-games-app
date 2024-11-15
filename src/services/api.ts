@@ -1,6 +1,7 @@
 
 import axios from "axios";
 import { cache } from "react";
+
 const BASE_URL = process.env.NODE_ENV === "development" ? "http://localhost:3000/api" : process.env.NEXT_PUBLIC_VERCEL_API_URL;
 
 

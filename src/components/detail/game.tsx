@@ -18,10 +18,15 @@ const Game = ({ cover, name, company, handleCollect, isCollected }: Props) => {
   return (
     <div className='flex flex-col gap-4'>
       <div className='flex gap-4'>
-          <div className='relative lg:w-[170px] lg:h-[226px] w-32 h-[9.5rem]'>
-            <Image src={cover} alt={'cover ' + name} className='rounded-lg object-cover' fill  sizes="(max-width: 640px) 128px, (max-width: 1024px) 176px"
-            />
-          </div>
+          <Image
+            src={cover}
+            alt={`Cover ${name}`}
+            className="rounded-lg object-fill w-32 h-[9.5rem] lg:w-[170px] lg:h-[226px]"
+            width={170} 
+            height={226}
+            sizes="(max-width: 640px) 128px, (max-width: 1024px) 176px"
+            priority 
+          />
           <div className='flex flex-col gap-6'>
               <div>
                 <H1 className='text-aero-violet-600'>{name}</H1>
