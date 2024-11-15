@@ -20,6 +20,7 @@ export async function searchGames(input: string): Promise<Game[]> {
 
 
 export const getGameByID = cache(async (id: string) => {
+    console.log(BASE_URL)
     if(!BASE_URL) {
         throw new Error('Not apiUrl')
     }
