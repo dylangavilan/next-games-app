@@ -5,8 +5,9 @@ let tokenExpiresAt: number | null = null;
 
 const axiosInstance = axios.create();
 
-const secret: string | undefined = process.env.client_secret
-const client_id: string | undefined = process.env.client_id
+const secret: string | undefined = process.env.SECRET_ID
+const client_id: string | undefined = process.env.CLIENT_ID
+
 
 async function fetchAccessToken() {
   if(!secret || !client_id) return;

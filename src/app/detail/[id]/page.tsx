@@ -3,23 +3,24 @@ import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import Game from '@/components/detail/game';
 import { getGameByID } from '@/services/api';
-import Button from '@/components/button';
 import { useGameStore } from '@/store/useGamesStore';
 import { getCover } from '@/lib/utils';
 import Chip from '@/components/detail/chip';
 import H2 from '@/components/h2';
 import H4 from '@/components/h4';
-import { getDate, parseGenres, parsePlatforms } from './utils';
+import { getDate, parseCompanies, parseGenres, parsePlatforms } from './utils';
 import Image from 'next/image';
 import { useToastStore } from '@/store/useToastStore';
+import { LoaderCircle } from 'lucide-react';
 
 function Page() {
   const { id } = useParams()
   const [isCollected, setIsCollected] = useState<boolean>(false);
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [game, setGame] = useState<GameDetail | null>(null)
-  const { addGame, removeGame, isLoading } = useGameStore(state => state)
+  const { addGame, removeGame } = useGameStore(state => state)
   const { addToast } = useToastStore(state => state)
+
   const checkIsCollected = (gameId: number) => {
     return useGameStore.getState().savedGames.some((savedGame: Game) => savedGame.id ==gameId)
   }
@@ -49,20 +50,26 @@ function Page() {
     }
   }
   
-  const parseCompanies = () => (game?.involved_companies.map(({company}) => (company.name) ).join(', ').trim() ?? '')
 
   if(isFetching) {
-    return <div className='bg-none min-h-screen'> is Fetching </div>
+    return (
+        <div className='bg-none min-h-screen flex flex-col items-center'> 
+            <LoaderCircle className='animate-spin'/>
+        </div>
+    ) 
   }
-  console.log()
+
+
   return (
     <div className='flex flex-col gap-6 min-h-screen'>
       {game &&
         <>
-          <Game cover={getCover('cover_big', game.cover.image_id)} name={game.name} url={game.url} company={parseCompanies()}/>
-          <Button variant={!isCollected ? 'primary' : 'secondary'} onClick={handleCollect} loading={isLoading}>
-            {!isCollected ? 'Collect game' : 'Game collected'}
-          </Button>
+          <Game cover={getCover('cover_big', game.cover.image_id)} 
+                name={game.name} 
+                url={game.url} 
+                company={game.involved_companies ? parseCompanies(game.involved_companies) : 'No company'} 
+                handleCollect={handleCollect} 
+                isCollected={isCollected}/>
           <div className='flex flex-wrap gap-2'>
             <Chip type='rating' value={game?.rating?.toFixed(1) ?? 'None'} />
             <Chip type='release' value={game.first_release_date ? getDate(game.first_release_date) : 'Not available'} />
@@ -80,7 +87,6 @@ function Page() {
               {parsePlatforms(game.platforms)}
             </H4>
           </div>
-
           <div className='flex flex-col gap-4'>
             <H2>Similar games</H2>
             <div className=' gap-2 grid grid-cols-3 sm:grid-cols-4'>
@@ -89,13 +95,13 @@ function Page() {
                   <Image src={getCover('cover_big', game.cover.image_id)} 
                     className='rounded-lg' 
                     fill
+                    sizes='(max-width:640px) 112px,'
                     alt='similar game' />
                 </div>
               ))}
             </div>
           </div>
         </>
-
       }
     </div>
   )

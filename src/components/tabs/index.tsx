@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { cva, VariantProps } from 'class-variance-authority';
+import { useGameStore } from '@/store/useGamesStore';
 
 const buttonStyles = cva(
   'px-4 py-1.5 rounded-full transition-all', 
@@ -36,7 +37,7 @@ type Option = {
 }
 export default function Tabs({handleSort}: Props) {
   const [selected, setSelected] = useState('Last added');
-
+  const { savedGames } = useGameStore(state => state)
   const options: Option[] = [
     {title: 'Last added', method: 'last_added'}, 
     {title: 'Newest', method: 'newest'}, 
@@ -46,7 +47,7 @@ export default function Tabs({handleSort}: Props) {
     <div className="flex flex-col items-left gap-4">
       <h2 className="text-lg font-semibold text-aero-violet-600 lg:text-center">Saved games</h2>
       <div className="flex gap-2">
-        {options.map((option) => (
+        {savedGames.length > 0 && options.map((option) => (
           <FilterButton
             key={option.title}
             label={option.title}

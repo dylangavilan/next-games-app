@@ -39,7 +39,7 @@ const ToastComponent = () => {
   }, [toasts, removeFirst]);
 
   return (
-    <div className='fixed bottom-10'>
+    <div className="fixed bottom-10 lg:left-1/2 transform lg:-translate-x-1/2">
         {toasts.map((toast: Toast) => (
           <Toast {...toast} key={toast.id}/>
         ))}

@@ -14,7 +14,7 @@ const Header = ({children}: Props) => {
   return (
     <header className={
             cn('flex flex-col gap-5 pt-4 lg:items-center',
-            pathname !== '/' && 'lg:flex-row lg:justify-center lg:items-start lg:gap-4'      
+            pathname !== '/' && 'lg:flex-row lg:justify-center lg:gap-4'      
     )}>
         <nav className='flex items-center'>
             {

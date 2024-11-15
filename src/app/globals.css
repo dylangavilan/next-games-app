@@ -67,7 +67,7 @@ body {
     @apply border-border;
   }
   body {
-    background-image:  url("../assets/bg-keys-desktop.png"), linear-gradient(180deg, rgba(250, 153, 234, 0.44) 25%, rgba(255,255,255,1) 52%);
+    background-image:  url("../assets/bg-keys-desktop.png"), linear-gradient(180deg, rgba(250, 153, 234, 0.44) 4%, rgba(255,255,255,1) 52%);
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: top;

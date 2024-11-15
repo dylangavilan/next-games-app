@@ -1,6 +1,8 @@
 
 import axios from "axios";
 import { cache } from "react";
+const BASE_URL = process.env.NODE_ENV === "development" ? "http://localhost:3000/api" : process.env.NEXT_PUBLIC_BASE_API_URL;
+
 
 export async function searchGames(input: string): Promise<Game[]> {
     try {
@@ -13,12 +15,14 @@ export async function searchGames(input: string): Promise<Game[]> {
     } catch (err) {
         console.error('Error fetching games:', err);
         throw new Error('Ocurrio un error')  
-        // cache;
     }
 }
 
 
 export const getGameByID = cache(async (id: string) => {
-    const response = await axios.get(`/api/igbd/${id}`);
+    if(!BASE_URL) {
+        throw new Error('Not apiUrl')
+    }
+    const response = await axios.get(BASE_URL + `/igbd/${id}`);
     return response.data.data;
 });

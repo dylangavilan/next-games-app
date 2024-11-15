@@ -33,13 +33,14 @@ const Searchbar = () => {
     router.push('/detail/' + game.id)
     setGames(null)    
   }
+
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-      if(e.target.value.length > 3){
-          getList(e.target.value)
-        } else {
-            setGames(null)
-        }
+    if(e.target.value.length > 3){
+        getList(e.target.value)
+    } else {
+        setGames(null)
     }
+  }
   const debounced = useDebounceCallback(handleChange, 700)
 
   const ref = useOutsideClick(() => setGames(null));
