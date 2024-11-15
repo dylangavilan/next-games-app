@@ -12,12 +12,12 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Gaming Having Z",
+  title: "Gaming Haven Z",
   description: "The place where you will can choose your games",
   openGraph: {
-    title: "Gaming Having Z",
+    title: "Gaming Haven Z",
     description: "All you want in one place, search what will be your next adventure",
-    siteName: "Gaming Having Z"
+    siteName: "Gaming Haven Z"
   },
 };
 
