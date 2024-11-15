@@ -14,6 +14,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Gaming Having Z",
   description: "The place where you will can choose your games",
+  openGraph: {
+    title: "Gaming Having Z",
+    description: "All you want in one place, search what will be your next adventure"
+  },
 };
 
 export default function RootLayout({
