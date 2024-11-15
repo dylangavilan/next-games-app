@@ -17,8 +17,9 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Gaming Haven Z",
     description: "All you want in one place, search what will be your next adventure",
-    siteName: "Gaming Haven Z"
+    siteName: "Gaming Haven Z",
   },
+  keywords: 'games, igbd, gaming, ea, playstation'
 };
 
 export default function RootLayout({
