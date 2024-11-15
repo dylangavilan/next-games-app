@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Aerolab code challenge
 
-First, run the development server:
+## **Stack**
+- Next.js, Typescript, Zustand, Tailwind 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## **Estructura del Proyecto**
+```plaintext
+/src
+  /app               # Pantallas y manejo de servidor
+  /components        # Componentes reutilizables
+  /hooks             # Hooks propios
+  /services          # Logica de negocio
+  /utils             # Funciones auxiliares
 ```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## **Como correrlo?**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Instalar depencendias:
+   ```bash
+   npm install
+   ```
+   
+2. Configurar .ENV:
+   ```plaintext
+    SECRET_ID = ''
+    CLIENT_ID = ''
+   ```
+3. Iniciar
+   ```bash
+   npm run dev
+   ```
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## **Features importantes**
 
-## Learn More
+- Busqueda optimizada.
+- Diseño resposive, basado en mobile first
+- Optimización del SEO: Metadata y Open Graph dinamicos.
+- Componentes reutilizables (`Card`, `Select`, `Button` etc.).
+- Sistema de notificaciones reutilizables (`Toasts`)
+- Precarga de imagenes importantes
+---
 
-To learn more about Next.js, take a look at the following resources:
+## **Capturas de Pantalla**
+<em>**Desktop**</em>
+<div style="display: flex; justify-content: between;padding: 16; align-items: center;margin-bottom: 24;">
+<img src="https://github.com/user-attachments/assets/8b46b1a2-fb89-4057-9db6-e71e508f7df8" width="450">
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<img src="https://github.com/user-attachments/assets/d6a4bff3-0438-4006-8517-3bd91abce549" width="450">
+</div>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<em>**Mobile**</em>
+<div style="display: flex; justify-content: between;padding: 16; align-items: center;margin-bottom: 24;">
+<img src="https://github.com/user-attachments/assets/c57c867a-cde8-4029-b7b8-cd4926ab0b65" alt="aerolab-weld vercel app (iPhone 12 Pro)" width="300" heigth:"400">
+<img src="https://github.com/user-attachments/assets/7385c342-e53e-4e97-b90f-518b32aba6ea" alt="aerolab-weld vercel app (iPhone 12 Pro)" width="300">
+</div>
 
-## Deploy on Vercel
+<em>**SEO**</em>
+<div style="display: flex; justify-content: between;padding: 16; align-items: center;margin-bottom: 24;">
+<img src="https://github.com/user-attachments/assets/2e85a4e9-f429-4678-8cd1-edf1397b1f8a" alt="SEO" width="300" heigth:"400">
+<img src="https://github.com/user-attachments/assets/5c6b09ba-9f37-4c91-b6bd-22a0ab6be218" alt="SEO" width="300" heigth:"400">
+</div>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+## **Deploy**
+- [Demo](https://aerolab-weld.vercel.app/)
+
+---
+
