@@ -36,7 +36,7 @@ const ToastComponent = () => {
       }
     }, 1000 * 5);
     return () => clearInterval(intervalId);
-  }, [toasts]);
+  }, [toasts, removeFirst]);
 
   return (
     <div className='fixed bottom-10'>
