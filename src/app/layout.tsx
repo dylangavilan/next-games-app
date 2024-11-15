@@ -16,7 +16,8 @@ export const metadata: Metadata = {
   description: "The place where you will can choose your games",
   openGraph: {
     title: "Gaming Having Z",
-    description: "All you want in one place, search what will be your next adventure"
+    description: "All you want in one place, search what will be your next adventure",
+    siteName: "Gaming Having Z"
   },
 };
 
@@ -33,7 +34,7 @@ export default function RootLayout({
           <Searchbar/>
         </Header>
         <main className='lg:max-w-screen-md lg:mx-auto'>
-        {children}
+         {children}
         </main>
         <ToastComponent />
       </body>

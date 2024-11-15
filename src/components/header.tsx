@@ -25,7 +25,7 @@ const Header = ({children}: Props) => {
                         Gaming Haven Z
                     </H1>
                     </div> :
-                    <button className='flex gap-2 items-center text-aero-violet-600 font-bold' onClick={router.back}>
+                    <button className='flex gap-2 items-center text-aero-violet-600 font-bold' onClick={() => router.replace('/')}>
                         <ArrowLeft className=''/>
                         Back
                     </button>
