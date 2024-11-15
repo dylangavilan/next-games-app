@@ -25,14 +25,23 @@ type Genre = {
     id: number,
     name: string,
 }
+type Company = {
+    id: number,
+    company: {
+        id: number
+        name: string
+    }
+}
 interface GameDetail extends Game {
     screenshots: Screenshots[],
     similar_games: SimilarGame[],
-    platforms: Array<Platform>,
+    platforms: Platform[],
     rating: number,
     first_release_date: number
     summary: string
-    genres: Array<Genre>
+    genres: Genre[]
+    url?: string
+    involved_companies: Company[]
 }
 interface GameWithTimestamp extends GameDetail {
     timestamp: number;

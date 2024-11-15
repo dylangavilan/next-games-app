@@ -48,18 +48,18 @@ function Page() {
       setIsCollected(checkIsCollected(game.id))
     }
   }
+  
+  const parseCompanies = () => (game?.involved_companies.map(({company}) => (company.name) ).join(', ').trim() ?? '')
 
   if(isFetching) {
     return <div className='bg-none min-h-screen'> is Fetching </div>
   }
-
-
-  
+  console.log()
   return (
     <div className='flex flex-col gap-6 min-h-screen'>
       {game &&
         <>
-          <Game cover={getCover('cover_big', game.cover.image_id)} name={game.name} enterprise='Rockstar' />
+          <Game cover={getCover('cover_big', game.cover.image_id)} name={game.name} url={game.url} company={parseCompanies()}/>
           <Button variant={!isCollected ? 'primary' : 'secondary'} onClick={handleCollect} loading={isLoading}>
             {!isCollected ? 'Collect game' : 'Game collected'}
           </Button>
@@ -83,9 +83,9 @@ function Page() {
 
           <div className='flex flex-col gap-4'>
             <H2>Similar games</H2>
-            <div className=' gap-2 grid grid-cols-3 lg:grid-cols-4'>
+            <div className=' gap-2 grid grid-cols-3 sm:grid-cols-4'>
               {game.similar_games?.map((game: SimilarGame) => (
-                <div className='relative w-28 h-36 lg:w-[170px] lg:h-[226px]' key={game.cover.image_id}>
+                <div className='relative w-28 h-36 sm:w-36 sm:h-44 md:w-[170px] md:h-[226px]' key={game.cover.image_id}>
                   <Image src={getCover('cover_big', game.cover.image_id)} 
                     className='rounded-lg' 
                     fill

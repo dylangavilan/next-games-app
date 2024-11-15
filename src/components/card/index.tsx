@@ -10,7 +10,7 @@ type Props = {
 
 export default function Card(props: Props) {
   return (
-    <div className="relative lg:w-[170px] lg:h-[226px] w-28 h-[9.5rem] cursor-pointer" onClick={props.onClick}>
+    <div className="relative sm:w-36 sm:h-48 lg:w-44 lg:h-56 w-28 h-40 cursor-pointer" onClick={props.onClick}>
       <Image
         src={getCover('cover_big', props.cover.image_id)}
         alt={props.name}
