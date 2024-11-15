@@ -1,6 +1,5 @@
 const API_URL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.VERCEL_URL;
 
-
 import axios from "axios";
 import { cache } from "react";
 
@@ -21,7 +20,8 @@ export async function searchGames(input: string): Promise<Game[]> {
 
 
 export const getGameByID = cache(async (id: string) => {
-    const baseUrl = API_URL;
+    if(!API_URL) return;
+    const baseUrl = new URL(API_URL).origin;
     const response = await axios.get(`${baseUrl}/api/igbd/${id}`);
     return response.data.data;
 });
