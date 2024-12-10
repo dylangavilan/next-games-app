@@ -6,8 +6,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useMemo, useState } from 'react'
 import not_saved from '@/assets/not-saved.png'
-import H2 from '@/components/h2'
-import H4 from '@/components/h4'
+import H2 from '@/components/ui/h2'
+import H4 from '@/components/ui/h4'
 
 type Option = 'newest' | 'last_added' | 'oldest'
 

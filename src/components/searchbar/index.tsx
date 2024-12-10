@@ -1,20 +1,20 @@
 'use client'
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 import Select from './options'
-import { searchGames } from '@/services/api'
+import { searchGames } from '@/app/actions'
 import OptionImage from './option-image'
 import { LoaderCircle, Search } from 'lucide-react';
-import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 import { useDebounceCallback } from 'usehooks-ts'
+import Link from 'next/link'
 
 
 const Searchbar = () => {
-  const router = useRouter()
   const [isFocus, setIsFocus] = useState<boolean>(false)
   const [games, setGames] = useState<Array<Game> | null>(null)
   const [isFetching, setIsFetching] = useState<boolean>(false);
+
   const getList = async (input: string) => {
     setIsFetching(true)
     try {
@@ -29,28 +29,34 @@ const Searchbar = () => {
     }
   }
 
-  const handleSelect = (game: Game) => {
-    router.push('/detail/' + game.id)
-    setGames(null)    
+  const handleSelect = () => {
+    setGames(null)  
+    if (refInput.current) {
+        refInput.current.value = '';
+    } 
   }
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    if(e.target.value.length > 3){
-        getList(e.target.value)
+    let value = e.target.value
+    if(value.length > 3){
+        getList(value)
     } else {
         setGames(null)
     }
   }
+
   const debounced = useDebounceCallback(handleChange, 700)
 
   const ref = useOutsideClick(() => setGames(null));
-
+  const refInput = useRef<HTMLInputElement>(null)
+  console.log(games)
   return (
     <div className="relative w-full max-w-sm z-50" ref={ref} >
         <div className="absolute inset-y-0  left-3 bottom-0 flex items-center pointer-events-none">
             <Search className={cn(isFocus ? 'text-aero-violet-600' : 'text-aero-gray-200', 'w-4 transition-all duration-300' )} />
         </div>
         <input type='search' 
+               ref={refInput}
                placeholder='Search games...' 
                onFocus={() => setIsFocus(true)}
                onBlur={() => setIsFocus(false)}
@@ -58,7 +64,6 @@ const Searchbar = () => {
                          (games || isFetching) && '!border-aero-pink-600 rounded-b-none')}
                onChange={debounced}
         />
-            
         <Select options={games} isLoading={isFetching}>
             {isFetching ? 
                 <Select.Item>
@@ -66,12 +71,12 @@ const Searchbar = () => {
                 </Select.Item> 
             :
             games?.map((game) => (
-                <Select.Item key={game.id} handleSelect={() => handleSelect(game)}>
-                        {game.cover && (
-                             <OptionImage cover={game.cover}/>
-                        )}
+                <Select.Item key={game.id} handleSelect={handleSelect}>
+                    <Link href={`/detail/${game.id}`} className="flex items-center gap-2">
+                        {game.cover && <OptionImage cover={game.cover} />}
                         {game.name}
-                </Select.Item>
+                    </Link>
+              </Select.Item>
             ))}
         </Select>
      </div>

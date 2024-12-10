@@ -1,14 +1,14 @@
 'use client'
 import React, { PropsWithChildren } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import H1 from './h1'
+import H1 from './ui/h1'
 import { ArrowLeft } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import IconHeader from './header-icon'
 
-type Props = {} & PropsWithChildren
+ 
 
-const Header = ({children}: Props) => {
+const Header = ({ children }: PropsWithChildren) => {
   const pathname = usePathname()
   const router = useRouter()
   return (

@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import { type Toast, useToastStore } from '@/store/useToastStore';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import {  CheckCircle2Icon } from 'lucide-react';
-import H2 from './h2';
-import H4 from './h4';
+import H2 from './ui/h2';
+import H4 from './ui/h4';
 
 
 const Toast = (props: Toast) => {
