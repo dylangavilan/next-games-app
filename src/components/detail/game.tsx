@@ -63,8 +63,8 @@ function GameDetail({ game }: {game: GameDetail}) {
               <div className='gap-2 grid grid-cols-3 sm:grid-cols-4'>
                 {game.similar_games.map((game: SimilarGame) => (
                   <div className='relative h-[152px] w-[114px] lg:w-[170px] lg:h-[226px]' key={game.name}>
-                    <Image key={game.cover.image_id}
-                           src={getCover('cover_big', game.cover.image_id)}
+                    <Image key={game.name + 'similar'}
+                           src={getCover('cover_big', game?.cover?.image_id)}
                            alt="Similar game"
                            className="w-full h-full top-0 left-0 object-cover rounded-lg"
                            fill

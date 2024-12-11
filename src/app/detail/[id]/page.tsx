@@ -3,6 +3,7 @@ import { api } from "@/services/api";
 import { getCover } from "@/lib/utils";
 import GameDetail from "@/components/detail/game";
 import { Suspense } from "react";
+import Loader from "@/components/ui/loader";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -38,12 +39,12 @@ export async function generateMetadata(
   }
 }
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+export default async function Page({ params }: Props) {
   const { id } = await params
   const game = await api.gameDetail.get(id);
   
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loader />}>
         <GameDetail game={game} />
     </Suspense>
   );
