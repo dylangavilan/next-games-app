@@ -7,10 +7,10 @@ import { LoaderCircle, Search } from 'lucide-react';
 import { cn } from '@/lib/utils'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 import { useDebounceCallback } from 'usehooks-ts'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
+
 
 const Searchbar = () => {
-  const router = useRouter()
   const [isFocus, setIsFocus] = useState<boolean>(false)
   const [games, setGames] = useState<Array<Game> | null>(null)
   const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -29,9 +29,8 @@ const Searchbar = () => {
     }
   }
 
-  const handleSelect = (id: number) => {
-    setGames(null)      
-    router.replace(`/detail/${id}`)
+  const handleSelect = () => {
+    setGames(null)  
     if (refInput.current) {
         refInput.current.value = '';
     } 
@@ -47,9 +46,9 @@ const Searchbar = () => {
   }
 
   const debounced = useDebounceCallback(handleChange, 700)
-  const ref = useOutsideClick(() => setGames(null));
-  const refInput = useRef<HTMLInputElement>(null);
 
+  const ref = useOutsideClick(() => setGames(null));
+  const refInput = useRef<HTMLInputElement>(null)
   return (
     <div className="relative w-full max-w-sm z-50" ref={ref} >
         <div className="absolute inset-y-0  left-3 bottom-0 flex items-center pointer-events-none">
@@ -71,9 +70,11 @@ const Searchbar = () => {
                 </Select.Item> 
             :
             games?.map((game) => (
-                <Select.Item key={game.id} handleSelect={() => handleSelect(game.id)} >
+                <Select.Item key={game.id} handleSelect={handleSelect}>
+                    <Link href={`/detail/${game.id}`} className="flex items-center gap-2" prefetch={null}>
                         {game.cover && <OptionImage cover={game.cover} />}
                         {game.name}
+                    </Link>
                 </Select.Item>
             ))}
         </Select>
