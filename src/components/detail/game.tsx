@@ -2,14 +2,15 @@
 import React, { useEffect, useState } from 'react'
 import { useGameStore } from '@/store/useGamesStore';
 import { getCover } from '@/lib/utils';
-import { getDate, parseCompanies, parseGenres, parsePlatforms } from '@/app/detail/[id]/utils';
+import { parseCompanies } from '@/app/detail/[id]/utils';
 import { useToastStore } from '@/store/useToastStore';
 import Game from '@/components/detail/game-info';
-import Chip from '@/components/detail/game-chip';
 import Image from 'next/image';
-import Screenshots from '@/components/detail/game-screenshots';
-import H4 from '@/components/ui/h4';
+import Carousel from '@/components/detail/game-carousel';
 import H2 from '@/components/ui/h2';
+import Chips from '@/components/detail/game-chips';
+import Summary from './game-summary';
+import Platforms from './game-platforms';
 
 function GameDetail({ game }: {game: GameDetail}) {
   const [isCollected, setIsCollected] = useState<boolean>(false);
@@ -35,38 +36,27 @@ function GameDetail({ game }: {game: GameDetail}) {
     setIsCollected(checkIsCollected(game.id))
   }
   
+  const coverImg = game.cover?.image_id ?? 'nocover'
+
   return (
     <div className='flex flex-col gap-6 min-h-screen'>
-        <>
-          {/* <Game cover={getCover('cover_big', game.cover?.image_id)} 
+          <Game cover={getCover('cover_big', coverImg)} 
                 name={game.name} 
                 url={game.url} 
                 company={game.involved_companies ? parseCompanies(game.involved_companies) : 'No company'} 
                 handleCollect={handleCollect} 
-                isCollected={isCollected}/> */}
-          <div className='flex flex-wrap gap-2'>
-            <Chip type='rating' value={game?.rating?.toFixed(1) ?? 'None'} />
-            <Chip type='release' value={game.first_release_date ? getDate(game.first_release_date) : 'Not available'} />
-            <Chip type='genre' value={parseGenres(game.genres)} />
-          </div>
-          <div className='flex flex-col gap-4'>
-            <H2>Summary</H2>
-            <H4 className='text-aero-gray-400'>
-              {game.summary}
-            </H4>
-          </div>
-          <div className='flex flex-col gap-4'>
-            <H2>Platforms</H2>
-            <H4 className='text-aero-gray-400'>
-              {parsePlatforms(game.platforms)}
-            </H4>
-          </div>
+                isCollected={isCollected}/>
+          <Chips game={game} />
+          <Summary game={game} />
+          <Platforms game={game} />
+
           {game.screenshots && 
               <div className='flex flex-col gap-4'>
                   <H2>Media</H2>
-                  <Screenshots items={game.screenshots}/> 
+                  <Carousel items={game.screenshots}/> 
               </div>
           }
+
           {game.similar_games?.length > 0 && 
             <div className='flex flex-col gap-4'>
               <H2>Similar games</H2>
@@ -84,7 +74,6 @@ function GameDetail({ game }: {game: GameDetail}) {
               </div>
             </div>
           }
-        </>
     </div>
   )
 }

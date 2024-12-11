@@ -49,7 +49,6 @@ const Searchbar = () => {
 
   const ref = useOutsideClick(() => setGames(null));
   const refInput = useRef<HTMLInputElement>(null)
-  console.log(games)
   return (
     <div className="relative w-full max-w-sm z-50" ref={ref} >
         <div className="absolute inset-y-0  left-3 bottom-0 flex items-center pointer-events-none">

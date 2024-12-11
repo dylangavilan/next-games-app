@@ -43,10 +43,8 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   const game = await api.gameDetail.get(id);
   
   return (
-    <main>
-      <Suspense fallback={<div>Loading...</div>}>
-          <GameDetail game={game} />
-      </Suspense>
-    </main>
+    <Suspense fallback={<div>Loading...</div>}>
+        <GameDetail game={game} />
+    </Suspense>
   );
 }

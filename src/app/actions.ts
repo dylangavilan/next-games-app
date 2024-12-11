@@ -12,7 +12,7 @@ export async function searchGames(query: string): Promise<Game[]> {
           'Client-ID': client_id,
           'Authorization': `Bearer ${accessToken}`,
         },
-        body: `fields name, cover.url; where rating != null; where first_release_date != null; search "${query}";`,
+        body: `fields name, cover.*; where rating != null; where first_release_date != null; search "${query}";`,
     };
     try {
         const response = await fetch(gameUrl, postOptions);

@@ -7,10 +7,10 @@ type Props = {
 }
 
 const OptionImage = ({ cover }: Props) => {
-  console.log(cover)
+  const coverImg = cover?.image_id ?? 'nocover'
   return (
-    <div className='relative lg:w-10 lg:h-10 w-8 h-8 min-w-8 lg:min-w-10'>
-      <Image src={`https:${cover.url}`} 
+    <div className='relative lg:w-10 lg:h-10 w-8 h-8 lg:min-w-10'>
+      <Image src={getCover('micro', coverImg)} 
              alt={`${cover.id} cover`} 
              className='w-full h-full top-0 left-0' 
              fill />

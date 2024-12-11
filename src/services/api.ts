@@ -13,7 +13,7 @@ const postById = async (id: string): Promise<GameDetail> => {
         'Authorization': `Bearer ${accessToken}`,
       },
       body: `fields name, category, rating, summary, genres.name, similar_games.name, url, similar_games.cover.image_id, first_release_date,
-      platforms.name, cover.*, involved_companies.company.name, screenshots.image_id; where id = ${id};`,
+      platforms.name, cover.image_id, involved_companies.company.name, screenshots.image_id; where id = ${id};`,
     };
 
     try {

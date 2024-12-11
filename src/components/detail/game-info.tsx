@@ -17,14 +17,13 @@ const Game = ({ cover, name, company, handleCollect, isCollected }: Props) => {
   
   return (
     <div className='flex flex-col gap-4'>
-      <div className='flex gap-4'>
-          <div className='relative w-[82.5px] h-[110px] lg:w-[170px] lg:h-[226px]'>
-          <Image src={cover}
-                 alt="game-cover"
-                 width={80}
-                 height={112}
-                 className="w-20 h-28 md:w-44 md:h-56 shadow rounded"
-          />
+      <div className='flex gap-4 '> 
+          <div className='relative w-[110.5px] h-[110px] lg:w-[170px] lg:h-[226px]'>
+            <Image src={cover}
+                   alt="game-cover"
+                   fill
+                   className="w-full h-full top-0 left-0  rounded"
+            />
           </div>
           <div className='flex flex-col gap-6'>
               <div>
