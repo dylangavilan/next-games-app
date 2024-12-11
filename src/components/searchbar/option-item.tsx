@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import React, { PropsWithChildren } from 'react'
 
 type Props = {

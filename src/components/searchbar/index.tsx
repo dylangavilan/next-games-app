@@ -37,7 +37,7 @@ const Searchbar = () => {
   }
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value
+    const value = e.target.value
     if(value.length > 3){
         getList(value)
     } else {

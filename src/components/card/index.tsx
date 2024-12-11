@@ -1,5 +1,5 @@
 import { getCover } from '@/lib/utils'
-import { SearchCodeIcon, Trash } from 'lucide-react';
+import { Trash } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react'
 
