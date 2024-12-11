@@ -4,9 +4,6 @@ const gameUrl = process.env.NEXT_IGBD_API_URL as string;
 
 const postById = async (id: string): Promise<GameDetail> => {
     const client_id = process.env.CLIENT_ID as string
-    if (!client_id) {
-      throw new Error("CLIENT_ID no está definido en las variables de entorno");
-  }
     const accessToken = await getAccessToken();
     const postOptions: RequestInit = {
       method: 'POST',

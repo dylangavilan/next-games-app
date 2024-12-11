@@ -3,10 +3,8 @@
 const gameUrl = process.env.NEXT_IGBD_API_URL as string;
 
 export async function searchGames(query: string): Promise<Game[]> {
-    const client_id = process.env.CLIENT_ID
-    if (!client_id) {
-        throw new Error("CLIENT_ID no está definido en las variables de entorno");
-    }
+    const client_id = process.env.CLIENT_ID as string
+
     const accessToken = await getAccessToken();
     const postOptions: RequestInit = {
         method: 'POST',
@@ -29,11 +27,8 @@ export async function searchGames(query: string): Promise<Game[]> {
 
 
 export async function getAccessToken() {
-    const secret = process.env.SECRET_ID 
-    const client_id = process.env.CLIENT_ID 
-    if (!client_id || !secret) {
-        throw new Error("CLIENT_ID no está definido en las variables de entorno");
-    }
+    const secret = process.env.SECRET_ID as string
+    const client_id = process.env.CLIENT_ID as string
       
     const postOptions: RequestInit = {
         method: 'POST',
