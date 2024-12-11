@@ -2,7 +2,7 @@
 
 const gameUrl = process.env.NEXT_IGBD_API_URL as string;
 
-export async function searchGames(query: string, id?: number): Promise<Game[]> {
+export async function searchGames(query: string): Promise<Game[]> {
     const client_id = process.env.CLIENT_ID as string
 
     const accessToken = await getAccessToken();
@@ -14,7 +14,7 @@ export async function searchGames(query: string, id?: number): Promise<Game[]> {
           'Client-ID': client_id,
           'Authorization': `Bearer ${accessToken}`,
         },
-        body: `fields name, cover.*, slug; limit 50;`,
+        body: `fields name, cover.*, slug; search "${query}"; limit 50;`,
     };
 
     try {
