@@ -72,7 +72,7 @@ const Searchbar = () => {
             games?.map((game) => (
                 <Select.Item key={game.id} handleSelect={handleSelect}>
                     <Link href={`/detail/${game.id}`} className="flex items-center gap-2" prefetch={null}>
-                        {game.cover && <OptionImage cover={game.cover} />}
+                        <OptionImage cover={game.cover} />
                         {game.name}
                     </Link>
                 </Select.Item>
