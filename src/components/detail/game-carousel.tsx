@@ -28,20 +28,16 @@ const Screenshots = ({ items }: Props) => {
       };
 
       const ShowItems = () => {
-       return  ( 
+       return ( 
         items.map((screenshot: Screenshots) => {
           const coverUrl = getCover('cover_big', screenshot.image_id);
           return (
-            <div
-              key={screenshot.image_id}
-              className="relative w-[83.5px] h-[83.5px] md:w-[170px] md:h-[160px]"
-            >
+            <div key={screenshot.image_id} className="relative w-[83.5px] h-[83.5px] md:w-[132.8px] md:h-[132.8px]">
               <Image
                 src={coverUrl}
                 alt={`Screenshot ${screenshot.image_id}`}
-                className="rounded-lg"
+                className="w-full h-full top-0 left-0 object-cover rounded-lg "
                 fill
-                sizes="(max-width: 640px) 83.5px, 170px"
               />
             </div>
           );
@@ -66,12 +62,10 @@ const Screenshots = ({ items }: Props) => {
                   <div
                     key={screenshot.image_id}
                     className="relative w-[83.5px] h-[83.5px] md:w-[170px] md:h-[160px]">
-                      <Image
-                            src={coverUrl}
+                      <Image src={coverUrl}
                             alt={`Screenshot ${screenshot.image_id}`}
-                            className="rounded-lg"
+                            className="w-full h-full top-0 left-0 object-cover rounded-lg "
                             fill
-                            sizes="(max-width: 640px) 83.5px, 170px"
                       />
                   </div>
                 );

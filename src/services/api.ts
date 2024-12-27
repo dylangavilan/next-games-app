@@ -1,30 +1,35 @@
+import { getAccessToken } from "@/app/actions";
 
-import axios from "axios";
-import { cache } from "react";
+const gameUrl = process.env.NEXT_IGBD_API_URL as string;
 
-const BASE_URL = process.env.NODE_ENV === "development" ? "http://localhost:3000/api" : process.env.NEXT_PUBLIC_VERCEL_API_URL;
+const postById = async (id: string): Promise<GameDetail> => {
+    const client_id = process.env.CLIENT_ID as string
+    const accessToken = await getAccessToken();
+    const postOptions: RequestInit = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain',
+        'Client-ID': client_id,
+        'Authorization': `Bearer ${accessToken}`,
+      },
+      body: `fields name, category, rating, summary, genres.name, similar_games.name, url, similar_games.cover.image_id, first_release_date,
+      platforms.name, cover.image_id, involved_companies.company.name, screenshots.image_id; where id = ${id};`,
+    };
 
-
-export async function searchGames(input: string): Promise<Game[]> {
     try {
-        const response = await axios.get('/api/igbd?search=' + encodeURIComponent(input));
-        if (response.data.status === 200) {
-            return response.data.data;
-        } else {
-            throw new Error(response.data.message || 'Error en la respuesta de la API');
-        }
-    } catch (err) {
-        console.error('Error fetching games:', err);
-        throw new Error('Ocurrio un error')  
+      const response = await fetch(gameUrl, postOptions);
+      const data = await response.json();
+      return data[0] as GameDetail;
+
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
 }
 
-
-export const getGameByID = cache(async (id: string) => {
-    console.log(BASE_URL)
-    if(!BASE_URL) {
-        throw new Error('Not apiUrl')
+const api = {
+    gameDetail: {
+        get: postById
     }
-    const response = await axios.get(BASE_URL + `/igbd/${id}`);
-    return response.data.data;
-});
+}
+export { api }

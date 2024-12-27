@@ -1,12 +1,9 @@
-import { LoaderCircle } from 'lucide-react'
+import Loader from '@/components/ui/loader'
 import React from 'react'
 
-function Loading() {
+
+export default function Page() {
   return (
-    <div className='bg-none min-h-screen flex flex-col items-center'> 
-        <LoaderCircle className='animate-spin mx-auto'/>
-    </div>
+    <Loader />
   )
 }
-
-export default Loading

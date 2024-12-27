@@ -4,14 +4,15 @@ type Screenshots = {
 }
 type Cover = {
     id: number,
-    image_id: string
+    image_id: string,
+    url: string
 }
 interface Game {
     screenshots: Array<Screenshots>
     id: number
     category: number
     name: string
-    cover: Cover
+    cover?: Cover
 }
 type SimilarGame = {
     name: string,

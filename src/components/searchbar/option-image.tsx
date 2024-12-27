@@ -3,13 +3,18 @@ import Image from 'next/image'
 import React from 'react'
 
 type Props = {
-    cover: Cover
+    cover?: Cover
 }
 
 const OptionImage = ({ cover }: Props) => {
+  const coverImg = cover?.image_id ?? 'nocover'
+  
   return (
-    <div className='relative w-10 h-10'>
-      <Image src={getCover('micro', cover.image_id)} alt={`${cover.id} cover`} className='rounded-[4px]' fill />
+    <div className='relative lg:w-10 lg:h-10 w-8 h-8 lg:min-w-10'>
+      <Image src={getCover('micro', coverImg)} 
+             alt={`${cover?.id} cover`} 
+             className='w-full h-full top-0 left-0' 
+             fill />
     </div>
   )
 }
